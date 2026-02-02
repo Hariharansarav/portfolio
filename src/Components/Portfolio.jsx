@@ -18,7 +18,7 @@ import javaIcon from './icons/java.png';
 
 const Portfolio = () => {
   const firstName = 'HARIHARAN';
-  const lastName = '';
+  const lastName = 'saravanan';
 
   const handleResumeDownload = () => {
     const link = document.createElement('a');
