@@ -269,7 +269,7 @@ body {
   color: #a0a0b0;
 }
 
-/* ================= SKILLS SECTION ================= */
+/* ================= ORBITAL SKILLS SECTION ================= */
 .skills-section {
   min-height: 100vh;
   padding: 80px 80px 100px;
@@ -365,7 +365,7 @@ body {
   filter: drop-shadow(0 4px 12px rgba(147, 112, 219, 0.6));
 }
 
-/* ================= SKILL ICONS ================= */
+/* ================= ORBITAL SKILL ICONS ================= */
 .skill-icon {
   position: absolute;
   width: var(--icon-size, 90px);
@@ -408,7 +408,7 @@ body {
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
 }
 
-/* Individual icon sizes - customize each one */
+/* Individual icon sizes */
 .skill-1 { --icon-size: 90px; --image-size: 45px; }
 .skill-2 { --icon-size: 90px; --image-size: 65px; }
 .skill-3 { --icon-size: 90px; --image-size: 65px; }
@@ -437,7 +437,7 @@ body {
   z-index: 100;
 }
 
-/* Positioning skills in circle - With rotation animation */
+/* Positioning skills in circle */
 .skill-1 { 
   top: 50%; 
   left: 50%; 
@@ -479,7 +479,7 @@ body {
   animation: orbitIcon8 30s linear infinite;
 }
 
-/* Individual orbit animations for each icon */
+/* Orbit animations */
 @keyframes orbitIcon1 {
   from {
     transform: translate(-50%, -50%) rotate(0deg) translateX(325px) rotate(0deg);
@@ -552,7 +552,168 @@ body {
   }
 }
 
+/* ================= GRID SKILLS SECTION ================= */
+.skills-grid-section {
+  min-height: 100vh;
+  padding: 80px 40px 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.skills-grid-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  padding: 60px 20px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.skill-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-height: 100px;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(108, 99, 255, 0.15) 0%, rgba(58, 123, 213, 0.15) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.skill-card:hover::before {
+  opacity: 1;
+}
+
+.skill-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(108, 99, 255, 0.4);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(108, 99, 255, 0.2),
+    inset 0 0 20px rgba(108, 99, 255, 0.1);
+}
+
+.skill-card.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+.skill-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-card:hover .skill-icon-wrapper {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.skill-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.skill-card:hover .skill-icon-img {
+  filter: drop-shadow(0 8px 16px rgba(108, 99, 255, 0.4));
+}
+
+.skill-name {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #e0e0e0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.skill-card:hover .skill-name {
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(108, 99, 255, 0.6);
+}
+
+/* Animation on load */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill-card {
+  animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.skill-card:nth-child(1) { animation-delay: 0.05s; }
+.skill-card:nth-child(2) { animation-delay: 0.1s; }
+.skill-card:nth-child(3) { animation-delay: 0.15s; }
+.skill-card:nth-child(4) { animation-delay: 0.2s; }
+.skill-card:nth-child(5) { animation-delay: 0.25s; }
+.skill-card:nth-child(6) { animation-delay: 0.3s; }
+.skill-card:nth-child(7) { animation-delay: 0.35s; }
+.skill-card:nth-child(8) { animation-delay: 0.4s; }
+.skill-card:nth-child(9) { animation-delay: 0.45s; }
+.skill-card:nth-child(10) { animation-delay: 0.5s; }
+.skill-card:nth-child(11) { animation-delay: 0.55s; }
+.skill-card:nth-child(12) { animation-delay: 0.6s; }
+.skill-card:nth-child(13) { animation-delay: 0.65s; }
+.skill-card:nth-child(14) { animation-delay: 0.7s; }
+.skill-card:nth-child(15) { animation-delay: 0.75s; }
+.skill-card:nth-child(16) { animation-delay: 0.8s; }
+
 /* ================= RESPONSIVE DESIGN ================= */
+@media (max-width: 1400px) {
+  .skills-grid {
+    max-width: 1000px;
+  }
+}
+
 @media (max-width: 1200px) {
   .main-title {
     font-size: 70px;
@@ -561,6 +722,22 @@ body {
   
   .subtitle {
     font-size: 28px;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 968px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  
+  .skill-card {
+    padding: 24px 28px;
   }
 }
 
@@ -647,24 +824,27 @@ body {
     height: 35px;
   }
 
-  /* Adjust skill positions for smaller screens */
-  .skill-1 { transform: translate(-50%, -50%) translateY(-250px); }
-  .skill-2 { transform: translate(-50%, -50%) translate(177px, -177px); }
-  .skill-3 { transform: translate(-50%, -50%) translateX(250px); }
-  .skill-4 { transform: translate(-50%, -50%) translate(177px, 177px); }
-  .skill-5 { transform: translate(-50%, -50%) translateY(250px); }
-  .skill-6 { transform: translate(-50%, -50%) translate(-177px, 177px); }
-  .skill-7 { transform: translate(-50%, -50%) translateX(-250px); }
-  .skill-8 { transform: translate(-50%, -50%) translate(-177px, -177px); }
+  .skills-grid-section {
+    padding: 60px 30px 80px;
+  }
 
-  .skill-1:hover { transform: translate(-50%, -50%) translateY(-250px) scale(1.15); }
-  .skill-2:hover { transform: translate(-50%, -50%) translate(177px, -177px) scale(1.15); }
-  .skill-3:hover { transform: translate(-50%, -50%) translateX(250px) scale(1.15); }
-  .skill-4:hover { transform: translate(-50%, -50%) translate(177px, 177px) scale(1.15); }
-  .skill-5:hover { transform: translate(-50%, -50%) translateY(250px) scale(1.15); }
-  .skill-6:hover { transform: translate(-50%, -50%) translate(-177px, 177px) scale(1.15); }
-  .skill-7:hover { transform: translate(-50%, -50%) translateX(-250px) scale(1.15); }
-  .skill-8:hover { transform: translate(-50%, -50%) translate(-177px, -177px) scale(1.15); }
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .skill-card {
+    padding: 20px 24px;
+  }
+  
+  .skill-name {
+    font-size: 16px;
+  }
+  
+  .skill-icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -701,22 +881,16 @@ body {
     height: 24px;
   }
 
-  /* Adjust skill positions for mobile */
-  .skill-1 { transform: translate(-50%, -50%) translateY(-175px); }
-  .skill-2 { transform: translate(-50%, -50%) translate(124px, -124px); }
-  .skill-3 { transform: translate(-50%, -50%) translateX(175px); }
-  .skill-4 { transform: translate(-50%, -50%) translate(124px, 124px); }
-  .skill-5 { transform: translate(-50%, -50%) translateY(175px); }
-  .skill-6 { transform: translate(-50%, -50%) translate(-124px, 124px); }
-  .skill-7 { transform: translate(-50%, -50%) translateX(-175px); }
-  .skill-8 { transform: translate(-50%, -50%) translate(-124px, -124px); }
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .skill-card {
+    padding: 18px 20px;
+  }
 
-  .skill-1:hover { transform: translate(-50%, -50%) translateY(-175px) scale(1.15); }
-  .skill-2:hover { transform: translate(-50%, -50%) translate(124px, -124px) scale(1.15); }
-  .skill-3:hover { transform: translate(-50%, -50%) translateX(175px) scale(1.15); }
-  .skill-4:hover { transform: translate(-50%, -50%) translate(124px, 124px) scale(1.15); }
-  .skill-5:hover { transform: translate(-50%, -50%) translateY(175px) scale(1.15); }
-  .skill-6:hover { transform: translate(-50%, -50%) translate(-124px, 124px) scale(1.15); }
-  .skill-7:hover { transform: translate(-50%, -50%) translateX(-175px) scale(1.15); }
-  .skill-8:hover { transform: translate(-50%, -50%) translate(-124px, -124px) scale(1.15); }
+  .skill-name {
+    font-size: 15px;
+  }
 }
