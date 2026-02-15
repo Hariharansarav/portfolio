@@ -45,7 +45,7 @@ const Portfolio = () => {
 
   // Orbital skills
   const orbitalSkills = [
-    { name: 'Figma', icon: figmaIcon, color: '#F24E1E' },
+    { name: 'Figma', icon: figmaIcon, color: '#F24E1E ' },./* Figma's official color */
     { name: 'Adobe Illustrator', icon: illustratorIcon, color: '#FF9A00' },
     { name: 'Blender', icon: blenderIcon, color: '#F5792A' },
     { name: 'Photoshop', icon: photoshopIcon, color: '#31A8FF' },
