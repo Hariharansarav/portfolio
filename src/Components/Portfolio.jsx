@@ -42,6 +42,7 @@ const Portfolio = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };//jvnrenvoiorer
+  //wcvwjnj
 
   // Orbital skills
   const orbitalSkills = [
