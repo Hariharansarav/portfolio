@@ -41,12 +41,11 @@ const Portfolio = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };//jvnrenvoiorer
-  //wcvwjnjg bgrbrbetfv
+  };
 
   // Orbital skills
   const orbitalSkills = [
-    { name: 'Figma', icon: figmaIcon, color: '#F24E1E ' },./* Figma's official color */
+    { name: 'Figma', icon: figmaIcon, color: '#F24E1E ' },/* Figma's official color */
     { name: 'Adobe Illustrator', icon: illustratorIcon, color: '#FF9A00' },
     { name: 'Blender', icon: blenderIcon, color: '#F5792A' },
     { name: 'Photoshop', icon: photoshopIcon, color: '#31A8FF' },
@@ -126,7 +125,7 @@ const Portfolio = () => {
       </main>
 
       {/* ABOUT */}
-      <section className="about-section" id="about">
+      <section className="about-section" id="about">  
         <h2 className="section-title">ABOUT ME</h2>
 
         <div className="about-content">
