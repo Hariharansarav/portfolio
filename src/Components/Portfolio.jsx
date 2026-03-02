@@ -227,5 +227,6 @@ const Portfolio = () => {
     </div>
   );
 };
+// Export the Portfolio component as the default export
 
 export default Portfolio; 
