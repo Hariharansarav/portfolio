@@ -19,5 +19,3 @@ export default function Navbar() {
     </nav>
   );
 }
-// heknkvrwvwr
-//gnkrngrw
