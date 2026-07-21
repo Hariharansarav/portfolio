@@ -1,3 +1,111 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #12101C;
+    color: #f3f4f6;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: #12101C;
+    color: #f3f4f6;
+  }
+}
+
+/* 60-30-10 Velvet Obsidian & Electric Violet Theme:
+   60%: #12101C (Obsidian Midnight background)
+   30%: #241B35 (Deep Purple surfaces, cards, and panels)
+   10%: #8B5CF6 (Electric Violet accents, neon glows, and highlights)
+*/
+
+@keyframes floatViolet {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+@keyframes pulseGlowViolet {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    border-color: rgba(139, 92, 246, 0.8);
+  }
+}
+
+.animate-float-violet {
+  animation: floatViolet 5s ease-in-out infinite;
+}
+
+.animate-pulse-violet {
+  animation: pulseGlowViolet 4s ease-in-out infinite;
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+/* Glassmorphism Classes for 60-30-10 Theme */
+.glass-panel-violet {
+  background: rgba(36, 27, 53, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.15);
+}
+
+.glass-card-violet {
+  background: rgba(36, 27, 53, 0.75);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.4);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-violet:hover {
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 0 16px 40px -10px rgba(139, 92, 246, 0.3);
+  transform: translateY(-5px);
+}
+
+.gradient-text-violet {
+  background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 50%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Violet Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #12101C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #241B35;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B5CF6;
+}
