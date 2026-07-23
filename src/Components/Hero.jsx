@@ -67,6 +67,23 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, [typedText, isDeleting, typingSpeed, fullJsonText]);
 
+  // A helper function to parse and syntax-highlight typed JSON tokens on the fly
+  const renderColorizedJson = (text) => {
+    if (!text) return null;
+    return text.split('\n').map((line, i) => {
+      // Colorize JSON keys, string values, integers, and boolean values
+      const highlighted = line
+        .replace(/(".*?")(\s*:)/g, '<span class="text-pink-400 font-bold">$1</span>$2')
+        .replace(/(:\s*)(".*?")/g, '$1<span class="text-cyan-300">$2</span>')
+        .replace(/(:\s*)(\d+)/g, '$1<span class="text-yellow-300 font-black">$2</span>')
+        .replace(/(:\s*)(true|false)/g, '$1<span class="text-[#A3E635] font-bold">$2</span>');
+
+      return (
+        <div key={i} className="min-h-[12px]" dangerouslySetInnerHTML={{ __html: highlighted || '&nbsp;' }} />
+      );
+    });
+  };
+
   return (
     <section
       id="home"
@@ -115,8 +132,8 @@ const Hero = () => {
                 </div>
 
                 {/* Dynamic Persona Bio text (Changes on Mode clicks) */}
-                <div className="min-h-[72px]">
-                  <p className="text-black text-sm sm:text-base leading-relaxed max-w-2xl font-semibold font-body pt-2 transition-opacity duration-200">
+                <div className="min-h-[84px] sm:min-h-[72px] flex items-center">
+                  <p className="text-black text-sm sm:text-base leading-relaxed max-w-2xl font-semibold font-body pt-2 transition-all duration-200">
                     {uxMode === 'ALL' && "I design and build high-performance web systems, relational/non-relational database layers, and AI integrations. Combining visual UI/UX design standards with RESTful APIs to engineer complete, reliable digital products."}
                     {uxMode === 'DEV' && "I build robust backend microservices, scale transactional database queries, and design RESTful APIs. Implementing server structures in Node, Express, and SQL databases to run applications."}
                     {uxMode === 'DESIGN' && "I map interactive wireframes, construct cohesive component design systems, and frame visual layouts. Designing interactive prototypes in Figma with a focus on ease-of-use and user accessibility."}
@@ -124,7 +141,7 @@ const Hero = () => {
                 </div>
               </div>
 
-              {/* Interactive Bio Switcher (More UX Effective control panel) */}
+              {/* Interactive Bio Switcher (Tactile control panel) */}
               <div className="bg-slate-50 border-brutalist-thin p-4 rounded-xl space-y-2 max-w-md shadow-inner text-black">
                 <div className="font-mono text-[8px] font-black uppercase text-slate-500 tracking-wider">
                   ✦ FILTER PORTFOLIO VIEW MODE
@@ -132,16 +149,20 @@ const Hero = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setUxMode(uxMode === 'DEV' ? 'ALL' : 'DEV')}
-                    className={`flex-1 py-1.5 border border-black rounded text-[9px] font-mono font-black uppercase shadow-brutalist-sm transition-all cursor-pointer ${
-                      uxMode === 'DEV' ? 'bg-cv-green text-black' : 'bg-white text-black hover:bg-slate-50'
+                    className={`flex-1 py-1.5 border-2 border-black rounded text-[9.5px] font-mono font-black uppercase transition-all cursor-pointer ${
+                      uxMode === 'DEV' 
+                        ? 'bg-cv-green text-black translate-x-[1.5px] translate-y-[1.5px] shadow-[1px_1px_0px_0px_#000]' 
+                        : 'bg-white text-black shadow-brutalist-sm hover:bg-slate-50'
                     }`}
                   >
                     {uxMode === 'DEV' ? '✦ FULLSTACK ACTIVE' : 'FULLSTACK ENG'}
                   </button>
                   <button
                     onClick={() => setUxMode(uxMode === 'DESIGN' ? 'ALL' : 'DESIGN')}
-                    className={`flex-1 py-1.5 border border-black rounded text-[9px] font-mono font-black uppercase shadow-brutalist-sm transition-all cursor-pointer ${
-                      uxMode === 'DESIGN' ? 'bg-cv-cyan text-black' : 'bg-white text-black hover:bg-slate-50'
+                    className={`flex-1 py-1.5 border-2 border-black rounded text-[9.5px] font-mono font-black uppercase transition-all cursor-pointer ${
+                      uxMode === 'DESIGN' 
+                        ? 'bg-cv-cyan text-black translate-x-[1.5px] translate-y-[1.5px] shadow-[1px_1px_0px_0px_#000]' 
+                        : 'bg-white text-black shadow-brutalist-sm hover:bg-slate-50'
                     }`}
                   >
                     {uxMode === 'DESIGN' ? '✦ UI/UX ACTIVE' : 'UI/UX DESIGN'}
@@ -171,7 +192,7 @@ const Hero = () => {
                 </button>
               </div>
 
-              {/* Social links with prepended https */}
+              {/* Social links */}
               <div className="flex items-center gap-3 self-start sm:self-auto">
                 <a
                   href="https://github.com/Hariharansarav"
@@ -197,7 +218,7 @@ const Hero = () => {
           </div>
 
           {/* RIGHT BENTO: MOCK UNIX DEVELOPER TERMINAL CONSOLE CARD (5 Cols) */}
-          <div className="col-span-1 lg:col-span-5 flex justify-center items-center relative min-h-[420px] lg:min-h-full">
+          <div className="col-span-1 lg:col-span-5 flex flex-col justify-center items-center relative min-h-[440px] lg:min-h-full">
 
             {/* Stamp Circle Rotating Badge */}
             <div className="absolute -top-10 -right-10 w-24 h-24 z-30 animate-spin-slow hidden lg:block">
@@ -213,7 +234,7 @@ const Hero = () => {
             </div>
 
             {/* Terminal Wrapper Container to hold absolute overlay stickers */}
-            <div className="relative w-full max-w-[340px] lg:max-w-full h-[380px] lg:h-full z-10">
+            <div className="relative w-full max-w-[340px] lg:max-w-full h-[400px] lg:h-[450px] z-10 flex flex-col justify-between">
               
               {/* Floating Badge 1: Top Left - ACTIVE & OPEN */}
               <div className="absolute -top-4 -left-4 z-20 bg-cv-green text-black border-brutalist px-2.5 py-1 font-mono text-[9px] font-black uppercase tracking-wide shadow-brutalist-sm rounded flex items-center gap-1.5 select-none pointer-events-none">
@@ -255,10 +276,10 @@ const Hero = () => {
                     <span className="text-white font-bold">hariharan@dev:~ $</span> cat bio.json
                   </div>
                   
-                  {/* Dynamically typing code document block */}
-                  <div className="text-white bg-slate-900/60 p-3 rounded border border-white/5 shadow-inner min-h-[140px] flex flex-col">
-                    <pre className="font-mono text-[9px] sm:text-[10px] text-green-300 leading-tight flex-1 whitespace-pre-wrap">
-                      {typedText}
+                  {/* Dynamically typing code document block with real-time token syntax coloring */}
+                  <div className="text-white bg-slate-900/60 p-3 rounded border border-white/5 shadow-inner min-h-[140px] flex flex-col justify-center">
+                    <pre className="font-mono text-[9.5px] sm:text-[10.5px] text-green-300 leading-normal flex-1 whitespace-pre-wrap">
+                      {renderColorizedJson(typedText)}
                       <span className="w-1.5 h-3 bg-green-300 inline-block animate-pulse ml-0.5" />
                     </pre>
                   </div>
