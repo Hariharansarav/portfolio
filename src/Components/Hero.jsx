@@ -1,23 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  Mail, ArrowRight, Sparkles, Zap, Code2, Layout, Database, FileText, 
-  Terminal, User, CheckCircle2, Award, Briefcase, GraduationCap 
-} from 'lucide-react';
-import skillsAvatar from '../assets/Avatar.png';
-import profileImage from '../assets/Hariharan.png';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, FileText, Globe } from 'lucide-react';
 import resumePDF from '../assets/Hariharan CV.pdf';
 
-// Import icons
-import reactIcon from './icons/React.png';
-import nodeIcon from './icons/nodejs.png';
-import pythonIcon from './icons/PYTHON.png';
-import figmaIcon from './icons/FIGMA.png';
-import mongoDBIcon from './icons/DB.png';
-import sqlIcon from './icons/MSSQL.png';
-
 const Hero = () => {
-  const [activeTab, setActiveTab] = useState('bio');
+  const [uxMode, setUxMode] = useState('ALL'); // 'ALL', 'DEV', 'DESIGN'
 
   const handleResumeDownload = () => {
     const link = document.createElement('a');
@@ -35,232 +21,273 @@ const Hero = () => {
     }
   };
 
-  return (
-    <section id="home" className="min-h-screen pt-32 pb-20 flex items-center justify-center relative overflow-hidden bg-[#12101C]">
-      
-      {/* Background Electric Violet Glowing Orbs */}
-      <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#8b5cf6]/15 rounded-full blur-3xl pointer-events-none animate-pulse-violet" />
-      <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-[#7c3aed]/10 rounded-full blur-3xl pointer-events-none" />
+  // Simulates character-by-character typing and erasing for the raw bio JSON document
+  const fullJsonText = `{
+  "name": "Hariharan S",
+  "focus": "UI/UX & Fullstack",
+  "degree": "B.Tech AI&DS",
+  "stats": {
+    "internships": 4,
+    "deployments": 5,
+    "active_pass": true
+  }
+}`;
 
-      {/* Floating 3D Accent Badge */}
-      <div className="absolute top-28 right-8 lg:right-20 z-20 animate-float-violet hidden sm:block">
-        <div className="w-12 h-12 rounded-2xl bg-[#8b5cf6] text-white flex items-center justify-center shadow-lg shadow-[#8b5cf6]/40 transform rotate-12">
-          <Zap className="w-7 h-7 fill-white" />
-        </div>
+  const [typedText, setTypedText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(30);
+
+  useEffect(() => {
+    const handleType = () => {
+      const current = typedText;
+      const fullText = fullJsonText;
+
+      if (!isDeleting) {
+        setTypedText(fullText.substring(0, current.length + 1));
+        
+        if (current.length === fullText.length) {
+          // Pause when typing finishes
+          setTypingSpeed(1800); 
+          setIsDeleting(true);
+        } else {
+          setTypingSpeed(35); // Typist speed
+        }
+      } else {
+        setTypedText(fullText.substring(0, current.length - 1));
+        setTypingSpeed(15); // Erasing is twice as fast
+        
+        if (current.length === 0) {
+          setIsDeleting(false);
+          setTypingSpeed(600); // Pause on empty before re-typing
+        }
+      }
+    };
+
+    const timer = setTimeout(handleType, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [typedText, isDeleting, typingSpeed, fullJsonText]);
+
+  return (
+    <section
+      id="home"
+      className="min-h-screen pt-32 pb-16 flex items-center justify-center relative overflow-hidden bg-cv-bg"
+    >
+      {/* Decorative Neo-Brutalist Grid Lines (Retro theme) */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+
+      {/* Huge Background Sticker Silhouette (Giant star badge decoration) */}
+      <div className="absolute -top-24 -left-24 w-96 h-96 opacity-10 rotate-12 select-none pointer-events-none text-black">
+        <svg viewBox="0 0 100 100" className="w-full h-full fill-current">
+          <path d="M50 0 L63 38 L100 38 L70 60 L80 100 L50 75 L20 100 L30 60 L0 38 L37 38 Z" />
+        </svg>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* LEFT COLUMN: INTRO & CALL TO ACTION */}
-          <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
-            
-            {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#241B35] border border-[#8b5cf6]/40 text-[#c4b5fd] text-xs font-semibold shadow-md">
-              <span className="w-2 h-2 rounded-full bg-[#8b5cf6] animate-ping" />
-              <span>Full Stack Developer & UI/UX Specialist</span>
-            </div>
 
-            {/* Main Greeting & Title */}
-            <div className="space-y-2">
-              <p className="text-xl sm:text-2xl font-bold text-slate-300 tracking-wide">
-                Hi, I'm <span className="text-[#8b5cf6] font-extrabold">Hariharan</span>
-              </p>
-              
-              <h1 className="text-4xl sm:text-6xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-                UI/UX Designer & <br />
-                <span className="gradient-text-violet">Fullstack Developer</span>
-              </h1>
-            </div>
+        {/* SPLIT BILLBOARD DASHBOARD LAYOUT */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
-            {/* Description */}
-            <p className="text-slate-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Engineering responsive frontend interfaces with React & Next.js, backed by robust REST APIs, Node.js microservices, and database systems.
-            </p>
+          {/* LEFT BENTO: TEXT DESCRIPTION BOARD (7 Cols) */}
+          <div className="col-span-1 lg:col-span-7 bg-white border-brutalist shadow-brutalist-lg rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative hover:rotate-[-0.3deg] transition-transform duration-300 text-left">
+            {/* Design grid pattern background */}
+            <div className="absolute inset-4 opacity-[0.02] pointer-events-none bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:16px_16px] rounded-xl" />
 
-            {/* Button Actions */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="px-8 py-4 rounded-full bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-extrabold text-sm shadow-xl shadow-[#8b5cf6]/35 hover:shadow-[#8b5cf6]/60 transition-all duration-300 flex items-center gap-2 group cursor-pointer"
-              >
-                <span>Hire Me</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="w-12 h-12 rounded-full bg-[#241B35] border border-[#8b5cf6]/30 hover:border-[#8b5cf6] text-slate-200 hover:text-[#8b5cf6] shadow-md flex items-center justify-center transition-all cursor-pointer"
-                title="Send Direct Message"
-              >
-                <Mail className="w-5 h-5" />
-              </button>
-
-              <button
-                onClick={() => scrollToSection('projects')}
-                className="px-6 py-4 rounded-full bg-[#241B35] hover:bg-[#2e2344] text-slate-200 font-bold text-sm border border-[#8b5cf6]/30 shadow-md transition-all cursor-pointer"
-              >
-                View Projects
-              </button>
-            </div>
-
-            {/* Quick Metrics Bar */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-[#241B35] max-w-md mx-auto lg:mx-0">
-              <div className="text-center lg:text-left">
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">4+</p>
-                <p className="text-xs text-slate-400 font-semibold">Internships</p>
+            <div className="space-y-6 relative z-10 w-full">
+              {/* Status Indicator Badge */}
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-cv-yellow text-black border-brutalist shadow-brutalist-sm text-xs font-mono font-bold uppercase tracking-wider">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-black"></span>
+                </span>
+                <span>CONSOLE ONLINE - COIMBATORE, IN</span>
               </div>
-              <div className="text-center lg:text-left">
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">5+</p>
-                <p className="text-xs text-slate-400 font-semibold">Projects Built</p>
-              </div>
-              <div className="text-center lg:text-left">
-                <p className="text-2xl sm:text-3xl font-extrabold text-[#8b5cf6]">7.5</p>
-                <p className="text-xs text-slate-400 font-semibold">B.Tech CGPA</p>
-              </div>
-            </div>
 
-          </div>
+              {/* Typography Title Headers */}
+              <div className="space-y-4">
+                <h1 className="text-4xl sm:text-6xl font-black font-display text-black tracking-tight leading-[1.05] uppercase">
+                  HARIHARAN S<span className="text-cv-pink font-black">.</span>
+                </h1>
 
-          {/* RIGHT COLUMN: UNIQUE INTERACTIVE DEVELOPER STUDIO COMMAND CENTER */}
-          <div className="lg:col-span-6">
-            <div className="glass-card-violet rounded-3xl p-6 sm:p-8 border border-[#8b5cf6]/30 bg-[#241B35]/90 relative shadow-2xl backdrop-blur-2xl">
-              
-              {/* Studio Header Row */}
-              <div className="flex items-center justify-between gap-4 pb-6 border-b border-[#8b5cf6]/20">
-                <div className="flex items-center gap-3">
-                  <div className="relative">
-                    <img
-                      src={profileImage}
-                      alt="Hariharan"
-                      className="w-12 h-12 rounded-xl object-cover border border-[#8b5cf6]"
-                    />
-                    <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#241B35]" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white leading-tight">Hariharan S</h3>
-                    <p className="text-xs text-[#c4b5fd] font-mono">Full Stack Developer & AI Engineer</p>
-                  </div>
+                <div className="bg-cv-pink text-black border-brutalist shadow-brutalist px-4 py-2.5 inline-block rotate-[-0.8deg]">
+                  <h2 className="text-sm sm:text-xl font-black font-mono uppercase tracking-wide">
+                    UI/UX Designer & Fullstack Developer
+                  </h2>
                 </div>
 
-                <span className="px-3 py-1 rounded-full bg-[#12101C] border border-[#8b5cf6]/30 text-emerald-400 text-[11px] font-mono font-semibold hidden sm:inline-block">
-                  ● Available for Hire
-                </span>
+                {/* Dynamic Persona Bio text (Changes on Mode clicks) */}
+                <div className="min-h-[72px]">
+                  <p className="text-black text-sm sm:text-base leading-relaxed max-w-2xl font-semibold font-body pt-2 transition-opacity duration-200">
+                    {uxMode === 'ALL' && "I design and build high-performance web systems, relational/non-relational database layers, and AI integrations. Combining visual UI/UX design standards with RESTful APIs to engineer complete, reliable digital products."}
+                    {uxMode === 'DEV' && "I build robust backend microservices, scale transactional database queries, and design RESTful APIs. Implementing server structures in Node, Express, and SQL databases to run applications."}
+                    {uxMode === 'DESIGN' && "I map interactive wireframes, construct cohesive component design systems, and frame visual layouts. Designing interactive prototypes in Figma with a focus on ease-of-use and user accessibility."}
+                  </p>
+                </div>
               </div>
 
-              {/* Interactive Showcase Tabs */}
-              <div className="flex items-center gap-2 pt-4 pb-4 border-b border-[#8b5cf6]/10 overflow-x-auto">
-                {[
-                  { id: 'bio', label: 'Bio & Background', icon: User },
-                  { id: 'stack', label: 'Core Stack', icon: Code2 },
-                  { id: 'focus', label: 'Key Strengths', icon: Sparkles },
-                ].map((tab) => (
+              {/* Interactive Bio Switcher (More UX Effective control panel) */}
+              <div className="bg-slate-50 border-brutalist-thin p-4 rounded-xl space-y-2 max-w-md shadow-inner text-black">
+                <div className="font-mono text-[8px] font-black uppercase text-slate-500 tracking-wider">
+                  ✦ FILTER PORTFOLIO VIEW MODE
+                </div>
+                <div className="flex gap-2">
                   <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
-                      activeTab === tab.id
-                        ? 'bg-[#8b5cf6] text-white shadow-md shadow-[#8b5cf6]/30'
-                        : 'bg-[#12101C]/80 text-slate-300 hover:text-white border border-slate-800'
+                    onClick={() => setUxMode(uxMode === 'DEV' ? 'ALL' : 'DEV')}
+                    className={`flex-1 py-1.5 border border-black rounded text-[9px] font-mono font-black uppercase shadow-brutalist-sm transition-all cursor-pointer ${
+                      uxMode === 'DEV' ? 'bg-cv-green text-black' : 'bg-white text-black hover:bg-slate-50'
                     }`}
                   >
-                    <tab.icon className="w-3.5 h-3.5" />
-                    <span>{tab.label}</span>
+                    {uxMode === 'DEV' ? '✦ FULLSTACK ACTIVE' : 'FULLSTACK ENG'}
                   </button>
-                ))}
+                  <button
+                    onClick={() => setUxMode(uxMode === 'DESIGN' ? 'ALL' : 'DESIGN')}
+                    className={`flex-1 py-1.5 border border-black rounded text-[9px] font-mono font-black uppercase shadow-brutalist-sm transition-all cursor-pointer ${
+                      uxMode === 'DESIGN' ? 'bg-cv-cyan text-black' : 'bg-white text-black hover:bg-slate-50'
+                    }`}
+                  >
+                    {uxMode === 'DESIGN' ? '✦ UI/UX ACTIVE' : 'UI/UX DESIGN'}
+                  </button>
+                </div>
               </div>
 
-              {/* Dynamic Tab Body Content */}
-              <div className="pt-6 min-h-[220px]">
-                
-                {/* TAB 1: BIO & BACKGROUND */}
-                {activeTab === 'bio' && (
-                  <div className="space-y-4 animate-in fade-in duration-300">
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                      Pursuing <strong className="text-white">B.Tech in Artificial Intelligence & Data Science</strong> at KGiSL Institute of Technology with hands-on full-stack development experience across 4 internships.
-                    </p>
+            </div>
 
-                    <div className="grid grid-cols-2 gap-3 pt-2">
-                      <div className="bg-[#12101C]/80 p-3 rounded-xl border border-slate-800">
-                        <p className="text-[10px] text-[#c4b5fd] font-mono uppercase">Current Internship</p>
-                        <p className="text-xs font-bold text-white">Full Stack Intern @ KG Agile</p>
-                      </div>
-                      <div className="bg-[#12101C]/80 p-3 rounded-xl border border-slate-800">
-                        <p className="text-[10px] text-[#c4b5fd] font-mono uppercase">Location</p>
-                        <p className="text-xs font-bold text-white">Coimbatore, Tamil Nadu</p>
-                      </div>
-                    </div>
+            {/* Navigation and Call to Action + Social Links */}
+            <div className="border-t-2 border-black pt-6 mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative z-10">
+              <div className="flex flex-wrap items-center gap-3.5">
+                <button
+                  onClick={() => scrollToSection('projects')}
+                  className="px-5 py-3 bg-cv-yellow text-black btn-brutalist text-xs cursor-pointer flex items-center gap-2 group"
+                >
+                  <span>View Projects</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
 
-                    <div className="flex items-center gap-2 text-xs text-[#c4b5fd] pt-1">
-                      <CheckCircle2 className="w-4 h-4 text-[#8b5cf6]" />
-                      <span>Proficient in React, Next.js, Node.js, Express, SQL, & MongoDB</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* TAB 2: CORE STACK */}
-                {activeTab === 'stack' && (
-                  <div className="space-y-3 animate-in fade-in duration-300">
-                    <p className="text-xs text-slate-300 font-medium">Primary frameworks & design tools:</p>
-                    
-                    <div className="grid grid-cols-2 gap-2.5">
-                      {[
-                        { name: 'React.js & Next.js', icon: reactIcon, level: 'Advanced' },
-                        { name: 'Node.js & Express', icon: nodeIcon, level: 'Advanced' },
-                        { name: 'Figma UI/UX', icon: figmaIcon, level: 'Advanced' },
-                        { name: 'Python & AI', icon: pythonIcon, level: 'Proficient' },
-                        { name: 'MongoDB', icon: mongoDBIcon, level: 'Intermediate' },
-                        { name: 'MSSQL / MySQL', icon: sqlIcon, level: 'Intermediate' },
-                      ].map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-2.5 p-2.5 rounded-xl bg-[#12101C]/90 border border-slate-800">
-                          <img src={item.icon} alt={item.name} className="w-5 h-5 object-contain" />
-                          <div>
-                            <p className="text-xs font-bold text-white truncate">{item.name}</p>
-                            <p className="text-[10px] text-[#8b5cf6] font-mono">{item.level}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* TAB 3: KEY STRENGTHS */}
-                {activeTab === 'focus' && (
-                  <div className="space-y-3 animate-in fade-in duration-300">
-                    {[
-                      { title: 'Frontend Architecture', desc: 'Crafting pixel-perfect, accessible UI components with React & Tailwind CSS.' },
-                      { title: 'REST API & Backend Design', desc: 'Designing secure CRUD endpoints, database schemas, and middleware.' },
-                      { title: 'AI & Data Innovations', desc: 'Integrating machine learning models for real-world agricultural & business automation.' },
-                    ].map((st, idx) => (
-                      <div key={idx} className="p-3 rounded-xl bg-[#12101C]/80 border border-slate-800 space-y-1">
-                        <p className="text-xs font-bold text-white flex items-center gap-2">
-                          <Sparkles className="w-3.5 h-3.5 text-[#8b5cf6]" />
-                          <span>{st.title}</span>
-                        </p>
-                        <p className="text-xs text-slate-300">{st.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-              </div>
-
-              {/* Studio Footer */}
-              <div className="pt-4 border-t border-[#8b5cf6]/20 flex items-center justify-between text-xs text-slate-400">
-                <span className="font-mono">Hariharan.identity()</span>
                 <button
                   onClick={handleResumeDownload}
-                  className="text-[#8b5cf6] hover:text-white font-bold flex items-center gap-1 transition-colors cursor-pointer"
+                  className="px-4 py-3 bg-white text-black btn-brutalist text-xs cursor-pointer flex items-center gap-1.5"
                 >
-                  <FileText className="w-3.5 h-3.5" />
-                  <span>Download CV</span>
+                  <FileText className="w-4 h-4 text-black" />
+                  <span>Get Resume PDF</span>
                 </button>
               </div>
 
+              {/* Social links with prepended https */}
+              <div className="flex items-center gap-3 self-start sm:self-auto">
+                <a
+                  href="https://github.com/Hariharansarav"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-black border-brutalist-thin shadow-brutalist-sm bg-slate-50 hover:bg-cv-pink px-2.5 py-1 rounded transition-colors uppercase tracking-wider"
+                >
+                  <Globe className="w-3.5 h-3.5" />
+                  <span>GitHub</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/hariharan-saravanan-567a99202"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-black border-brutalist-thin shadow-brutalist-sm bg-slate-50 hover:bg-cv-pink px-2.5 py-1 rounded transition-colors uppercase tracking-wider"
+                >
+                  <Globe className="w-3.5 h-3.5" />
+                  <span>LinkedIn</span>
+                </a>
+              </div>
             </div>
+
+          </div>
+
+          {/* RIGHT BENTO: MOCK UNIX DEVELOPER TERMINAL CONSOLE CARD (5 Cols) */}
+          <div className="col-span-1 lg:col-span-5 flex justify-center items-center relative min-h-[420px] lg:min-h-full">
+
+            {/* Stamp Circle Rotating Badge */}
+            <div className="absolute -top-10 -right-10 w-24 h-24 z-30 animate-spin-slow hidden lg:block">
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+                <circle cx="50" cy="50" r="30" className="fill-cv-yellow stroke-black stroke-2" />
+                <text className="font-mono text-[9px] font-black fill-black uppercase tracking-[0.12em]">
+                  <textPath href="#circlePath" startOffset="0%">
+                    ✦ FULL STACK DEV ✦ UI/UX DESIGNER ✦
+                  </textPath>
+                </text>
+              </svg>
+            </div>
+
+            {/* Terminal Wrapper Container to hold absolute overlay stickers */}
+            <div className="relative w-full max-w-[340px] lg:max-w-full h-[380px] lg:h-full z-10">
+              
+              {/* Floating Badge 1: Top Left - ACTIVE & OPEN */}
+              <div className="absolute -top-4 -left-4 z-20 bg-cv-green text-black border-brutalist px-2.5 py-1 font-mono text-[9px] font-black uppercase tracking-wide shadow-brutalist-sm rounded flex items-center gap-1.5 select-none pointer-events-none">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-black"></span>
+                </span>
+                <span>ACTIVE & OPEN</span>
+              </div>
+
+              {/* Floating Badge 2: Bottom Left - DEPLOYMENTS */}
+              <div className="absolute -bottom-4 -left-4 z-20 bg-cv-pink text-black border-brutalist px-3 py-1.5 font-mono text-[9px] font-black uppercase tracking-wide shadow-brutalist-sm rounded flex items-center gap-1 select-none pointer-events-none">
+                <span>🎗 5+ DEPLOYMENTS</span>
+              </div>
+
+              {/* Floating Badge 3: Bottom Right - INTERNSHIPS */}
+              <div className="absolute -bottom-4 -right-4 z-20 bg-cv-cyan text-black border-brutalist px-3 py-1.5 font-mono text-[9px] font-black uppercase tracking-wide shadow-brutalist-sm rounded flex items-center gap-1 select-none pointer-events-none">
+                <span>💼 4+ INTERNSHIPS</span>
+              </div>
+
+              {/* The Brutalist UNIX Terminal window container */}
+              <div className="w-full h-full bg-[#0b0e14] border-brutalist shadow-brutalist-lg rounded-2xl overflow-hidden flex flex-col justify-between group hover:rotate-[0.8deg] transition-transform duration-300">
+
+                {/* Window Header bar */}
+                <div className="bg-black text-white px-4 py-3 flex items-center justify-between border-b-2 border-black">
+                  {/* Red/Yellow/Green Window Dots */}
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-cv-pink border-brutalist-thin shadow-brutalist-sm" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-cv-yellow border-brutalist-thin shadow-brutalist-sm" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-cv-green border-brutalist-thin shadow-brutalist-sm" />
+                  </div>
+                  <span className="font-mono text-[9px] font-bold text-slate-450 tracking-wider">bash - hariharan@console:~</span>
+                  <span className="w-6" /> {/* Spacer */}
+                </div>
+
+                {/* Terminal Code Display Body */}
+                <div className="flex-1 p-5 font-mono text-[10px] sm:text-xs text-green-400 text-left space-y-4 select-none leading-relaxed overflow-y-auto">
+                  <div>
+                    <span className="text-white font-bold">hariharan@dev:~ $</span> cat bio.json
+                  </div>
+                  
+                  {/* Dynamically typing code document block */}
+                  <div className="text-white bg-slate-900/60 p-3 rounded border border-white/5 shadow-inner min-h-[140px] flex flex-col">
+                    <pre className="font-mono text-[9px] sm:text-[10px] text-green-300 leading-tight flex-1 whitespace-pre-wrap">
+                      {typedText}
+                      <span className="w-1.5 h-3 bg-green-300 inline-block animate-pulse ml-0.5" />
+                    </pre>
+                  </div>
+
+                  <div>
+                    <span className="text-white font-bold">hariharan@dev:~ $</span> node get_status.js
+                  </div>
+                  <div className="text-cv-yellow font-black uppercase text-[10px] tracking-wider leading-none">
+                    ✦ CONSOLE STATUS: ACTIVE & ONLINE
+                    <br />
+                    ✦ LOAD: NOMINAL // COIMBATORE, IN
+                  </div>
+                  <div className="flex items-center gap-1 pt-1">
+                    <span className="text-white font-bold">hariharan@dev:~ $</span>
+                    <span className="w-2 h-4 bg-green-400 animate-pulse inline-block" />
+                  </div>
+                </div>
+
+                {/* Terminal footer bar */}
+                <div className="bg-black text-[9px] font-mono text-slate-500 py-1.5 px-4 text-center select-none border-t border-white/5 uppercase">
+                  Vite // React App Console v2.0
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
+
       </div>
     </section>
   );

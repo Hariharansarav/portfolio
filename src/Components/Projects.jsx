@@ -1,232 +1,387 @@
 import React, { useState } from 'react';
-import { FolderGit2, Award, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, Calendar, Award, FileText, Bookmark } from 'lucide-react';
 import ProjectModal from './ProjectModal';
 
+// Import icons with corrected paths (case-sensitive)
+import sqlServerIcon from './ICONS/MSSQL.png';
+import reactIcon from './ICONS/React.png';
+import dataScienceIcon from './ICONS/datascience.png';
+
 const Projects = () => {
-  const [activeTab, setActiveTab] = useState('All');
+  const [activeFilter, setActiveFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
 
   const projectsData = [
     {
       id: 1,
-      title: 'Smart Tribal Farming Project',
-      status: 'Ongoing',
-      date: 'Present (Ongoing)',
-      category: 'AI & Data Science',
-      award: 'Best Paper Award Winner 🏆',
-      techStack: 'React.js, Node.js, AI/ML, Data Analysis, Python, Web Tech',
-      tags: ['React.js', 'AI/ML', 'Data Analysis', 'Python', 'Web Tech'],
+      title: 'Audit Management System',
+      category: 'Fullstack',
+      role: 'Backend & DB Developer',
+      date: 'Oct 2025',
+      domain: 'llsamsystem.netlify.app',
+      tags: ['React.js', 'Node.js', 'Express.js', 'MSSQL'],
+      icon: sqlServerIcon,
+      color: 'bg-cv-yellow',
+      code: 'AM-01',
       description:
-        'An AI-powered crop suitability and planning system tailored for tribal farmers to optimize crop yield and recommend sustainable farming strategies.',
+        'Developed a full-stack Audit Management System with REST API integration and MSSQL database connectivity. Implemented CRUD functionalities for managing audits, observations, and workflow operations. Designed responsive workflow-based user interfaces and optimized backend integration for improved application performance.',
       features: [
-        'Developing an AI-powered crop suitability and planning system for tribal farmers.',
-        'Completed frontend web development with intuitive, highly accessible responsive UI design.',
-        'Integrating machine learning models for accurate crop prediction and farming recommendations.',
-        'Collaborating with research team members on data-driven agricultural solutions.',
-        'Awarded the prestigious Best Paper Award for innovative application of AI in agriculture.',
+        'Developed a full-stack Audit Management System with REST API integration and MSSQL database connectivity.',
+        'Implemented CRUD functionalities for managing audits, observations, and workflow operations.',
+        'Designed responsive workflow-based user interfaces and optimized backend integration for improved application performance.',
       ],
-      gradient: 'from-[#8b5cf6]/20 via-[#241B35] to-[#12101C] border-[#8b5cf6]/40',
-      iconColor: 'text-[#8b5cf6]',
+      liveLink: 'https://llsamsystem.netlify.app/',
     },
     {
       id: 2,
-      title: 'Audit Management System',
-      status: 'Completed',
-      date: 'Oct 2025',
-      category: 'Full Stack',
-      award: null,
-      techStack: 'React.js, Node.js, Express.js, MSSQL',
-      tags: ['React.js', 'Node.js', 'Express.js', 'MSSQL', 'REST API', 'CRUD'],
+      title: 'Students Choice Global',
+      category: 'Fullstack',
+      role: 'Full Stack Intern',
+      date: 'March 2025',
+      domain: 'studentschoiceglobal.com',
+      tags: ['Next.js', 'Node.js', 'Express.js', 'React.js'],
+      icon: reactIcon,
+      color: 'bg-cv-pink',
+      code: 'SC-02',
       description:
-        'A comprehensive full-stack enterprise Audit Management System with REST API integration and MSSQL database connectivity for audit tracking and observations.',
+        'Worked on full-stack web application development as part of a collaborative team during the KG Agile internship. Developed and maintained responsive web pages using Next.js with frontend and backend integration and REST API connectivity. Contributed to dynamic data handling and feature development across multiple application modules.',
       features: [
-        'Developed a full-stack Audit Management System with robust REST API integration.',
-        'Connected seamlessly to MSSQL database for secure data persistence.',
-        'Implemented complete CRUD functionalities for managing audit cycles, observations, and workflow operations.',
-        'Designed responsive workflow-based user interfaces and optimized backend query performance.',
+        'Worked on full-stack web application development as part of a collaborative team during the KG Agile internship.',
+        'Developed and maintained responsive web pages using Next.js with frontend and backend integration and REST API connectivity.',
+        'Contributed to dynamic data handling and feature development across multiple application modules.',
       ],
-      gradient: 'from-[#241B35] to-[#12101C] border-[#8b5cf6]/20',
-      iconColor: 'text-[#8b5cf6]',
+      liveLink: 'https://www.studentschoiceglobal.com/',
     },
     {
       id: 3,
-      title: 'Students Choice Global',
-      status: 'Completed',
-      date: 'March 2025',
-      category: 'Web Apps',
-      award: null,
-      techStack: 'Next.js, Node.js, Express.js',
-      tags: ['Next.js', 'Node.js', 'Express.js', 'REST API', 'Dynamic Data'],
+      title: 'V Do Naturals Integration',
+      category: 'Fullstack',
+      role: 'API & UI Developer',
+      date: 'April 2025',
+      domain: 'vdonaturalss.com',
+      tags: ['Node.js', 'Express.js', 'JavaScript', 'E-Commerce'],
+      icon: reactIcon,
+      color: 'bg-cv-cyan',
+      code: 'VD-03',
       description:
-        'Collaborative full-stack web application built during the KG Agile internship with server-side rendered pages and dynamic data handling.',
+        'Worked on admin panel development and backend API integration for an e-commerce web application. Handled frontend-backend connectivity and dynamic data integration for website operations. Contributed during the UI/UX design phase by framing and organizing content for product pages and website sections.',
       features: [
-        'Worked on full-stack web application development as part of a collaborative team during the KG Agile internship.',
-        'Developed and maintained responsive web pages using Next.js with server-side components.',
-        'Engineered dynamic REST API connectivity for fast data synchronization across user modules.',
-        'Contributed to dynamic data handling and feature development across multiple application sub-modules.',
+        'Worked on admin panel development and backend API integration for an e-commerce web application.',
+        'Handled frontend-backend connectivity and dynamic data integration for website operations.',
+        'Contributed during the UI/UX design phase by framing and organizing content for product pages and website sections.',
       ],
-      gradient: 'from-[#241B35] to-[#12101C] border-[#8b5cf6]/20',
-      iconColor: 'text-[#8b5cf6]',
+      liveLink: 'https://vdonaturalss.com/',
     },
     {
       id: 4,
-      title: 'Backend API Integration & UI Development – V Do Naturals',
-      status: 'Completed',
-      date: 'April 2025',
-      category: 'Full Stack',
-      award: null,
-      techStack: 'Node.js, Express.js, JavaScript, E-Commerce UI',
-      tags: ['Node.js', 'Express.js', 'JavaScript', 'Admin Panel', 'E-Commerce'],
+      title: 'Green Wheels Website',
+      category: 'UI/UX',
+      role: 'Frontend Developer',
+      date: 'Dec 2023',
+      domain: 'greenwheelscs.in',
+      tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsive UI'],
+      icon: null,
+      color: 'bg-cv-purple',
+      code: 'GW-04',
       description:
-        'E-commerce admin panel development and backend API integration with dynamic data synchronization for product pages and inventory management.',
+        'Developed a responsive business website with structured navigation and user-friendly interface design. Worked on frontend development and responsive layouts for better accessibility across devices. Improved overall website presentation and user experience.',
       features: [
-        'Worked on admin panel development and backend API integration for an e-commerce web application.',
-        'Handled frontend-backend connectivity and dynamic data integration for daily website operations.',
-        'Contributed during the UI/UX design phase by framing and organizing content for product pages and section layouts.',
+        'Developed a responsive business website with structured navigation and user-friendly interface design.',
+        'Worked on frontend development and responsive layouts for better accessibility across devices.',
+        'Improved overall website presentation and user experience.',
       ],
-      gradient: 'from-[#241B35] to-[#12101C] border-[#8b5cf6]/20',
-      iconColor: 'text-[#8b5cf6]',
+      liveLink: 'https://www.greenwheelscs.in/',
     },
     {
       id: 5,
-      title: 'Green Wheels Supply Chain Website',
-      status: 'Completed',
-      date: 'Dec 2023',
+      title: 'Smart Tribal Farming',
       category: 'Web Apps',
-      award: null,
-      techStack: 'HTML5, CSS3, JavaScript',
-      tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsive UI', 'Accessibility'],
+      role: 'AI & Full Stack Dev',
+      date: 'Ongoing',
+      domain: 'smart-tribal-farming.onrender.com',
+      award: 'Best Paper Award ✦',
+      tags: ['React.js', 'AI/ML', 'Data Analysis', 'Python'],
+      icon: dataScienceIcon,
+      color: 'bg-cv-green',
+      code: 'SF-05',
       description:
-        'Responsive supply chain business website featuring clean navigation layouts, user-friendly interface design, and cross-device performance.',
+        'Developing an AI-powered crop suitability and planning system for tribal farmers. Completed frontend development with responsive UI design. Working on AI model integration for crop prediction and farming recommendations. Collaborating with team members on data-driven agricultural solutions. Received the Best Paper Award for innovative application of AI in agriculture.',
       features: [
-        'Developed a responsive business website with structured navigation and user-friendly interface design.',
-        'Worked on frontend development and responsive layouts for better accessibility across mobile, tablet, and desktop.',
-        'Improved overall website presentation, performance, and user interaction design.',
+        'Developing an AI-powered crop suitability and planning system for tribal farmers.',
+        'Completed frontend development with responsive UI design.',
+        'Working on AI model integration for crop prediction and farming recommendations.',
+        'Collaborating with team members on data-driven agricultural solutions.',
+        'Received the Best Paper Award for innovative application of AI in agriculture.',
       ],
-      gradient: 'from-[#241B35] to-[#12101C] border-[#8b5cf6]/20',
-      iconColor: 'text-[#8b5cf6]',
+      liveLink: 'https://smart-tribal-farming.onrender.com/',
     },
   ];
 
-  const filterTabs = ['All', 'Full Stack', 'Web Apps', 'AI & Data Science'];
+  const filters = ['All', 'Fullstack', 'UI/UX', 'Web Apps'];
 
-  const filteredProjects = activeTab === 'All'
+  const filteredProjects = activeFilter === 'All'
     ? projectsData
-    : projectsData.filter((p) => p.category === activeTab);
+    : projectsData.filter((p) => p.category === activeFilter);
+
+  const scrollToContact = () => {
+    const el = document.getElementById('contact');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <section id="projects" className="py-24 bg-[#12101C] relative overflow-hidden">
-      {/* Background Orbs */}
-      <div className="absolute top-1/3 right-0 w-96 h-96 bg-[#8b5cf6]/10 rounded-full blur-3xl pointer-events-none" />
+    <section id="projects" className="py-24 bg-cv-bg relative overflow-hidden">
+      {/* Background Decorative Star */}
+      <div className="absolute top-24 right-10 w-24 h-24 text-cv-pink opacity-20 pointer-events-none select-none hidden md:block">
+        <svg viewBox="0 0 100 100" className="w-full h-full fill-current animate-pulse">
+          <path d="M50 0 L63 38 L100 38 L70 60 L80 100 L50 75 L20 100 L30 60 L0 38 L37 38 Z" />
+        </svg>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full space-y-8">
         
-        {/* Section Title */}
-        <div className="text-center space-y-3 mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#241B35] border border-[#8b5cf6]/40 text-[#c4b5fd] text-xs font-bold uppercase tracking-wider">
-            <FolderGit2 className="w-3.5 h-3.5 text-[#8b5cf6]" />
-            <span>Featured Innovations</span>
+        {/* TOP PANEL ROW: OVERVIEW & STATS (divided into two cards) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          {/* Card A: Overview (7 Cols) */}
+          <div className="col-span-1 lg:col-span-7 bg-white border-brutalist shadow-brutalist rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative text-left group hover:rotate-[-0.3deg] transition-all duration-300">
+            {/* Visual background lines */}
+            <div className="absolute inset-4 opacity-[0.02] pointer-events-none bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:16px_16px] rounded-xl" />
+
+            <div className="space-y-4 flex-1 relative z-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cv-green text-black border-brutalist shadow-brutalist-sm text-[10px] font-mono font-bold uppercase tracking-wider rounded">
+                <span>✦ WHAT I'VE BUILT</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl font-black font-display text-black uppercase leading-none">
+                PROJECTS<span className="text-cv-pink font-black">.</span>
+              </h2>
+              <div className="bg-cv-pink text-black border-brutalist shadow-brutalist px-4 py-2 inline-block rotate-[-1.5deg] hover:rotate-0 transition-transform">
+                <span className="text-xs sm:text-sm font-black font-mono uppercase tracking-wide">
+                  IDEAS. CODE. IMPACT.
+                </span>
+              </div>
+              <p className="text-black text-xs sm:text-sm leading-relaxed font-semibold font-body">
+                A collection of things I've designed and built. Each project taught me something new and pushed me to grow.
+              </p>
+            </div>
+
+            {/* Illustration */}
+            <div className="w-24 h-24 bg-white border-brutalist shadow-brutalist rounded-xl p-2 relative rotate-[4deg] group-hover:rotate-0 transition-transform duration-250 flex flex-col justify-between select-none pointer-events-none flex-shrink-0 self-center z-10">
+              <div className="flex gap-1">
+                <div className="w-2 h-2 rounded-full bg-cv-pink border border-black" />
+                <div className="w-2 h-2 rounded-full bg-cv-yellow border border-black" />
+                <div className="w-2 h-2 rounded-full bg-cv-green border border-black" />
+              </div>
+              <div className="w-full h-8 border border-black bg-slate-50 flex items-center justify-center font-mono font-bold text-[8px] rounded">
+                WEBPAGE
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="w-8 h-1 bg-black rounded" />
+                <div className="px-1 bg-cv-yellow border border-black rounded text-[6.5px] font-mono font-black">&lt;/&gt;</div>
+              </div>
+            </div>
+
+            {/* Micro barcode sticker at top right */}
+            <div className="absolute top-3 right-3 flex items-center gap-1.5 opacity-60">
+              <div className="w-12 h-4 barcode-stripes border border-black rounded-[2px]" />
+              <span className="font-mono text-[6.5px] font-bold">V.07</span>
+            </div>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            Projects & <span className="gradient-text-violet font-black">Case Studies</span>
-          </h2>
-          <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
-            Showcase of full-stack web applications, e-commerce solutions, REST API architectures, and AI-driven agricultural systems.
-          </p>
+
+          {/* Card B: Stats & Filters (5 Cols) - REDESIGNED WITH LEDS AND STACKS */}
+          <div className="col-span-1 lg:col-span-5 bg-white border-brutalist shadow-brutalist rounded-2xl p-6 flex flex-col justify-between gap-6 text-left relative overflow-hidden group hover:rotate-[0.3deg] transition-all duration-300">
+            
+            {/* Header info */}
+            <div className="flex justify-between items-center border-b border-black/10 pb-2.5">
+              <span className="font-mono text-[8px] font-black uppercase text-slate-500 tracking-wider">✦ METRICS & CHANNELS RACK</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-cv-green border border-black animate-pulse" />
+            </div>
+
+            {/* 4 Stats Grid with LED status indicators */}
+            <div className="grid grid-cols-4 gap-2">
+              <div className="border border-dashed border-black p-2.5 rounded text-center bg-white shadow-sm relative hover:scale-102 transition-transform">
+                <p className="text-base sm:text-lg font-black font-display text-cv-green leading-none">05+</p>
+                <p className="text-[7.5px] font-mono font-black uppercase text-slate-700 leading-tight mt-1.5">PROJECTS</p>
+                <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-cv-green border border-black/35 shadow-[0_0_4px_#A3E635]" />
+              </div>
+              <div className="border border-dashed border-black p-2.5 rounded text-center bg-white shadow-sm relative hover:scale-102 transition-transform">
+                <p className="text-base sm:text-lg font-black font-display text-cv-pink leading-none">03</p>
+                <p className="text-[7.5px] font-mono font-black uppercase text-slate-700 leading-tight mt-1.5">FULLSTACK</p>
+                <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-cv-pink border border-black/35 shadow-[0_0_4px_#F472B6]" />
+              </div>
+              <div className="border border-dashed border-black p-2.5 rounded text-center bg-white shadow-sm relative hover:scale-102 transition-transform">
+                <p className="text-base sm:text-lg font-black font-display text-cv-cyan leading-none">02</p>
+                <p className="text-[7.5px] font-mono font-black uppercase text-slate-700 leading-tight mt-1.5">UI/UX</p>
+                <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-cv-cyan border border-black/35 shadow-[0_0_4px_#22D3EE]" />
+              </div>
+              <div className="border border-dashed border-black p-2.5 rounded text-center bg-white shadow-sm relative hover:scale-102 transition-transform">
+                <p className="text-base sm:text-lg font-black font-display text-cv-yellow leading-none">05+</p>
+                <p className="text-[7.5px] font-mono font-black uppercase text-slate-700 leading-tight mt-1.5">TECH USED</p>
+                <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-cv-yellow border border-black/35 shadow-[0_0_4px_#FFDE4D]" />
+              </div>
+            </div>
+
+            {/* Filter pills block styled like a patch panel bay */}
+            <div className="pt-4 border-t border-slate-200">
+              <div className="bg-slate-50 border-brutalist-thin p-3 rounded-xl flex flex-wrap gap-2.5 shadow-inner">
+                {filters.map((f) => (
+                  <button
+                    key={f}
+                    onClick={() => setActiveFilter(f)}
+                    className={`px-3.5 py-1.5 border-2 border-black rounded-lg font-mono text-[9.5px] font-black uppercase transition-all duration-100 cursor-pointer ${
+                      activeFilter === f
+                        ? 'bg-black text-white shadow-brutalist-sm translate-x-[-1px] translate-y-[-1px]'
+                        : 'bg-white text-black hover:bg-slate-50 hover:shadow-brutalist-sm'
+                    }`}
+                  >
+                    {f}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
         </div>
 
-        {/* Category Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          {filterTabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer ${
-                activeTab === tab
-                  ? 'bg-[#8b5cf6] text-white shadow-lg shadow-[#8b5cf6]/35'
-                  : 'bg-[#241B35] text-slate-300 hover:text-white border border-[#8b5cf6]/20'
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-
-        {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* BOTTOM SECTION: BRUTALIST CONCERT ADMISSION TICKET STUBS LIST (NO SCREENSHOTS) */}
+        <div className="flex flex-col gap-6 w-full">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className={`glass-card-violet rounded-3xl p-6 border bg-[#241B35]/90 flex flex-col justify-between relative group hover:border-[#8b5cf6] transition-all duration-300 ${project.gradient}`}
+              className="bg-white border-brutalist shadow-brutalist rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0 relative hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutalist-lg transition-all duration-200 group text-left w-full"
             >
-              <div>
+              
+              {/* Left Ticket Main Body (8 Cols) */}
+              <div className="col-span-1 lg:col-span-8 p-6 flex flex-col justify-between space-y-4">
                 
-                {/* Top Badge Row */}
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="px-3 py-1 rounded-full bg-[#12101C] border border-[#8b5cf6]/30 text-[#c4b5fd] text-[11px] font-mono font-bold">
-                    {project.date}
-                  </span>
-                  
-                  {project.award && (
-                    <span className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[11px] font-bold">
-                      <Award className="w-3 h-3 text-amber-400" />
-                      <span>Best Paper</span>
+                {/* Header Ticket Row */}
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className={`w-8 h-8 rounded-full border border-black flex items-center justify-center font-mono font-black text-xs text-black ${project.color}`}>
+                      {project.id}
                     </span>
-                  )}
+                    <span className="px-2.5 py-0.5 bg-black text-white text-[8.5px] font-mono font-bold uppercase rounded tracking-widest shadow-brutalist-sm">
+                      {project.category} PASS
+                    </span>
+                  </div>
+
+                  <span className="flex items-center gap-1.5 text-[10px] font-mono font-black text-slate-500">
+                    <Calendar className="w-3.5 h-3.5 text-black" />
+                    RELEASE: {project.date}
+                  </span>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#c4b5fd] transition-colors line-clamp-2">
-                  {project.title}
-                </h3>
+                {/* Project Title Block */}
+                <div className="space-y-2">
+                  
+                  {project.award && (
+                    <div className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-cv-pink border border-black/25 text-[8.5px] font-mono font-black uppercase tracking-wider rounded shadow-brutalist-sm">
+                      <Award className="w-3 h-3 text-black" />
+                      {project.award}
+                    </div>
+                  )}
 
-                {/* Category & Tech */}
-                <p className="text-xs text-[#8b5cf6] font-mono mb-3 font-bold">
-                  {project.techStack}
-                </p>
+                  <h3 className="text-xl sm:text-2xl font-black font-display text-black uppercase leading-tight tracking-tight group-hover:underline flex items-center gap-2">
+                    <Bookmark className="w-5 h-5 text-cv-pink flex-shrink-0" />
+                    <span>{project.title}</span>
+                  </h3>
+                  
+                  <p className="text-xs sm:text-sm text-black font-semibold font-body leading-relaxed max-w-4xl">
+                    {project.description}
+                  </p>
+                </div>
 
-                {/* Description */}
-                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 line-clamp-3 font-medium">
-                  {project.description}
-                </p>
+                {/* Tech Badge Tags Row */}
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-slate-450 self-center mr-1">STACK:</span>
+                  {project.tags.map((t, idx) => (
+                    <span 
+                      key={idx}
+                      className="px-2.5 py-0.5 bg-slate-50 border border-black/15 text-[8.5px] font-mono font-black uppercase rounded text-slate-800"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
 
               </div>
 
-              <div>
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.tags.slice(0, 4).map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2.5 py-1 rounded-lg bg-[#12101C] border border-[#8b5cf6]/30 text-[11px] font-semibold text-slate-300"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  {project.tags.length > 4 && (
-                    <span className="px-2 py-1 rounded-lg bg-[#12101C] border border-[#8b5cf6]/30 text-[11px] font-mono font-bold text-[#8b5cf6]">
-                      +{project.tags.length - 4}
-                    </span>
-                  )}
+              {/* Perforated Tear Line Separator (Decorative dashed borders + physical cutouts) */}
+              <div className="hidden lg:block relative col-span-1 w-0 h-full flex justify-center">
+                {/* Perforated torn ticket notch cutouts */}
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-cv-bg border-b-3 border-black z-20" />
+                <div className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-cv-bg border-t-3 border-black z-20" />
+                <div className="h-full border-r-3 border-dashed border-black/35" />
+              </div>
+
+              {/* Perforated Separator in Mobile (Horizontal instead of vertical) */}
+              <div className="lg:hidden border-t-3 border-dashed border-black/35 w-full relative h-0">
+                <div className="absolute -left-3.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-cv-bg border-r-3 border-black z-20" />
+                <div className="absolute -right-3.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-cv-bg border-l-3 border-black z-20" />
+              </div>
+
+              {/* Right Ticket Coupon Stub (3 Cols) */}
+              <div className="col-span-1 lg:col-span-3 bg-slate-50 p-6 flex flex-col justify-between items-center text-center space-y-4 lg:space-y-0 h-full self-center">
+                
+                {/* Visual Barcode Stamp */}
+                <div className="space-y-1.5 w-full flex flex-col items-center">
+                  <div className="w-3/4 h-8 barcode-stripes border border-black rounded shadow-brutalist-sm" />
+                  <span className="font-mono text-[8px] font-black text-slate-600 tracking-wider">
+                    {project.code} // {project.domain}
+                  </span>
                 </div>
 
-                {/* Card Action */}
-                <button
-                  onClick={() => setSelectedProject(project)}
-                  className="w-full py-3 rounded-xl bg-[#12101C] hover:bg-[#8b5cf6] text-slate-200 hover:text-white border border-[#8b5cf6]/30 hover:border-[#8b5cf6] font-bold text-xs transition-all duration-200 flex items-center justify-center gap-2 group/btn cursor-pointer shadow-sm"
-                >
-                  <span>View Details & Highlights</span>
-                  <ArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                </button>
+                {/* Sub info */}
+                <div className="font-mono text-[9px] uppercase leading-tight space-y-0.5">
+                  <div className="text-slate-500 font-bold">STUB ASSIGNMENT</div>
+                  <div className="font-black text-slate-800">{project.role}</div>
+                </div>
+
+                {/* Stacked Ticket Actions (Yellow View Live + White details Inspect) */}
+                <div className="w-full space-y-2 pt-2">
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full py-2 bg-cv-yellow text-black border-brutalist-thin shadow-brutalist-sm text-[9.5px] font-mono font-black text-center uppercase tracking-wider hover:bg-slate-50 hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer flex items-center justify-center gap-1"
+                  >
+                    <span>VIEW LIVE</span>
+                    <ExternalLink className="w-3 h-3 text-black" />
+                  </a>
+                  
+                  <button
+                    onClick={() => setSelectedProject(project)}
+                    className="w-full py-2 bg-white text-black border-brutalist-thin shadow-brutalist-sm text-[9.5px] font-mono font-black uppercase hover:bg-slate-50 cursor-pointer"
+                  >
+                    INSPECT DETAILS
+                  </button>
+                </div>
+
               </div>
 
             </div>
           ))}
         </div>
 
+        {/* Bottom CTA Banner */}
+        <div className="flex items-center justify-center gap-3 pt-8">
+          <button 
+            onClick={scrollToContact}
+            className="px-5 py-3 bg-cv-pink text-black border-brutalist shadow-brutalist-sm text-xs font-mono font-black text-center uppercase tracking-wider hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
+          >
+            INTERESTED IN COLLABORATING?
+          </button>
+          <button 
+            onClick={scrollToContact}
+            className="px-5 py-3 bg-white text-black border-brutalist shadow-brutalist-sm text-xs font-mono font-black text-center uppercase tracking-wider hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
+          >
+            LET'S CONNECT
+          </button>
+        </div>
+
       </div>
 
-      {/* Modal Popup */}
+      {/* Project Modal details */}
       {selectedProject && (
         <ProjectModal
           project={selectedProject}

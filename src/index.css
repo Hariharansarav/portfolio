@@ -1,111 +1,254 @@
 @import "tailwindcss";
 
+/* Import modern premium fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Share+Tech+Mono&display=swap');
+
+@theme {
+  /* Set fonts */
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+
+  /* Custom Neo-Brutalist Color Palette */
+  --color-cv-bg: #DBE2E9; /* Vintage light grey-blue */
+  --color-cv-yellow: #FFDE4D; /* Retro Yellow */
+  --color-cv-green: #A3E635; /* Neon Lime Green */
+  --color-cv-orange: #FB923C; /* Saturated Orange */
+  --color-cv-pink: #F472B6; /* Neon Pink */
+  --color-cv-cyan: #22D3EE; /* Retro Blue */
+  --color-cv-purple: #C084FC; /* Purple/Lilac Accent */
+  
+  /* Additional system colors */
+  --color-slate-350: #cbd5e1;
+  --color-slate-450: #94a3b8;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: #12101C;
-    color: #f3f4f6;
+    font-family: var(--font-body);
+    background-color: var(--color-cv-bg);
+    color: #000000;
   }
 
   body {
     overflow-x: hidden;
-    background-color: #12101C;
-    color: #f3f4f6;
+    background-color: var(--color-cv-bg);
+    color: #000000;
+  }
+
+  ::selection {
+    background-color: #000000;
+    color: var(--color-cv-yellow);
   }
 }
 
-/* 60-30-10 Velvet Obsidian & Electric Violet Theme:
-   60%: #12101C (Obsidian Midnight background)
-   30%: #241B35 (Deep Purple surfaces, cards, and panels)
-   10%: #8B5CF6 (Electric Violet accents, neon glows, and highlights)
-*/
+/* Custom Neo-Brutalist Utility Classes */
 
-@keyframes floatViolet {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+.border-brutalist {
+  border: 3px solid #000000;
+}
+
+.border-brutalist-thick {
+  border: 4px solid #000000;
+}
+
+.border-brutalist-thin {
+  border: 2px solid #000000;
+}
+
+.shadow-brutalist {
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.shadow-brutalist-lg {
+  box-shadow: 8px 8px 0px 0px #000000;
+}
+
+.shadow-brutalist-sm {
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+/* Interactive elements that translate and change shadow on hover/click */
+.card-brutalist-interactive {
+  border: 3px solid #000000;
+  box-shadow: 5px 5px 0px 0px #000000;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-brutalist-interactive:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0px 0px #000000;
+}
+
+.card-brutalist-interactive:active {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0px 0px #000000;
+}
+
+.btn-brutalist {
+  border: 3px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.btn-brutalist:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #000000;
+}
+
+.btn-brutalist:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+/* Procedural Barcode Stripes */
+.barcode-stripes {
+  background-image: repeating-linear-gradient(
+    90deg,
+    #000000,
+    #000000 2px,
+    transparent 2px,
+    transparent 5px,
+    #000000 5px,
+    #000000 7px,
+    transparent 7px,
+    transparent 11px,
+    #000000 11px,
+    #000000 12px,
+    transparent 12px,
+    transparent 16px,
+    #000000 16px,
+    #000000 20px,
+    transparent 20px,
+    transparent 22px
+  );
+  background-size: 32px 100%;
+}
+
+/* Postage Stamp Border Effect */
+.postage-stamp {
+  position: relative;
+  background-color: white;
+  border: 3px solid #000000;
+}
+
+.postage-stamp::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: 12px;
+  right: 12px;
+  background-image: radial-gradient(circle, var(--color-cv-bg) 4px, transparent 4px);
+  background-size: 16px 100%;
+  pointer-events: none;
+}
+
+/* Timeline vertical line */
+.brutalist-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 4px;
+  background-color: #000000;
+  border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+  .brutalist-timeline::before {
+    left: 50%;
+    transform: translateX(-50%);
   }
-  50% {
-    transform: translateY(-10px) rotate(1.5deg);
-  }
 }
 
-@keyframes pulseGlowViolet {
-  0%, 100% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.75;
-    transform: scale(1.06);
-  }
-}
-
-@keyframes borderGlow {
-  0%, 100% {
-    border-color: rgba(139, 92, 246, 0.3);
-  }
-  50% {
-    border-color: rgba(139, 92, 246, 0.8);
-  }
-}
-
-.animate-float-violet {
-  animation: floatViolet 5s ease-in-out infinite;
-}
-
-.animate-pulse-violet {
-  animation: pulseGlowViolet 4s ease-in-out infinite;
-}
-
-.animate-border-glow {
-  animation: borderGlow 3s ease-in-out infinite;
-}
-
-/* Glassmorphism Classes for 60-30-10 Theme */
-.glass-panel-violet {
-  background: rgba(36, 27, 53, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(139, 92, 246, 0.25);
-  box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.15);
-}
-
-.glass-card-violet {
-  background: rgba(36, 27, 53, 0.75);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.4);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-card-violet:hover {
-  border-color: rgba(139, 92, 246, 0.6);
-  box-shadow: 0 16px 40px -10px rgba(139, 92, 246, 0.3);
-  transform: translateY(-5px);
-}
-
-.gradient-text-violet {
-  background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 50%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Custom Violet Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #12101C;
+  background: var(--color-cv-bg);
+  border-left: 3px solid #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #241B35;
-  border-radius: 4px;
+  background: #000000;
+  border: 2px solid var(--color-cv-bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B5CF6;
+  background: var(--color-cv-yellow);
 }
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float-custom {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Ticket tear off line */
+.ticket-tear-line {
+  background-image: linear-gradient(to bottom, #000000 60%, transparent 60%);
+  background-position: center;
+  background-size: 3px 15px;
+  background-repeat: repeat-y;
+}
+
+/* Endless horizontal marquee scrolling animations */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 25s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 25s linear infinite;
+}
+

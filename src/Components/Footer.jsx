@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUp, Mail, Phone, Code2, FileText } from 'lucide-react';
-import githubIcon from './icons/github.png';
+import githubIcon from './ICONS/github.png';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -19,22 +19,22 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#12101C] border-t border-[#8b5cf6]/20 pt-16 pb-12 relative overflow-hidden text-slate-400">
-      {/* Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#8b5cf6]/10 rounded-full blur-3xl pointer-events-none" />
+    <footer className="bg-white border-t-3 border-black pt-16 pb-12 relative overflow-hidden text-black">
+      {/* Decorative background stripes */}
+      <div className="absolute top-0 right-0 w-24 h-full opacity-[0.02] bg-[repeating-linear-gradient(45deg,#000,#000_10px,transparent_10px,transparent_20px)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b-2 border-black">
           
           {/* BRAND COLUMN */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-black text-white tracking-tight">
-                hariharan<span className="text-[#8b5cf6] font-extrabold">.</span>
+              <span className="text-xl sm:text-2xl font-black font-display text-black tracking-tight">
+                HARIHARAN<span className="text-cv-yellow font-black text-2xl animate-bounce">.</span>
               </span>
             </div>
 
-            <p className="text-sm text-slate-300 leading-relaxed max-w-md font-medium">
+            <p className="text-xs sm:text-sm text-black leading-relaxed max-w-md font-semibold font-body">
               Passionate about building responsive, user-centered web applications, robust REST APIs,
               and intelligent data-driven solutions with clean UI/UX standards.
             </p>
@@ -44,50 +44,50 @@ const Footer = () => {
                 href="https://github.com/Hariharansarav"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl bg-[#241B35] border border-[#8b5cf6]/30 hover:border-[#8b5cf6] text-slate-300 hover:text-[#8b5cf6] flex items-center justify-center transition-all duration-200 p-2"
+                className="w-9 h-9 bg-white border-brutalist-thin shadow-brutalist-sm hover:bg-cv-yellow hover:scale-105 text-black flex items-center justify-center transition-all duration-200 p-2 rounded"
                 aria-label="GitHub"
               >
-                <img src={githubIcon} alt="GitHub" className="w-full h-full object-contain filter invert opacity-80 hover:opacity-100" />
+                <img src={githubIcon} alt="GitHub" className="w-full h-full object-contain filter grayscale" />
               </a>
               <a
                 href="mailto:hariharansarav7@gmail.com"
-                className="w-10 h-10 rounded-xl bg-[#241B35] border border-[#8b5cf6]/30 hover:border-[#8b5cf6] text-slate-300 hover:text-[#8b5cf6] flex items-center justify-center transition-all duration-200"
+                className="w-9 h-9 bg-white border-brutalist-thin shadow-brutalist-sm hover:bg-cv-yellow hover:scale-105 text-black flex items-center justify-center transition-all duration-200 rounded"
                 aria-label="Email"
               >
-                <Mail className="w-5 h-5" />
+                <Mail className="w-4 h-4 text-black" />
               </a>
               <a
                 href="tel:+919791680352"
-                className="w-10 h-10 rounded-xl bg-[#241B35] border border-[#8b5cf6]/30 hover:border-[#8b5cf6] text-slate-300 hover:text-[#8b5cf6] flex items-center justify-center transition-all duration-200"
+                className="w-9 h-9 bg-white border-brutalist-thin shadow-brutalist-sm hover:bg-cv-yellow hover:scale-105 text-black flex items-center justify-center transition-all duration-200 rounded"
                 aria-label="Phone"
               >
-                <Phone className="w-5 h-5" />
+                <Phone className="w-4 h-4 text-black" />
               </a>
             </div>
           </div>
 
           {/* QUICK LINKS */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-l-2 border-[#8b5cf6] pl-3">
+            <h4 className="text-xs font-black text-black uppercase tracking-wider mb-4 border-l-3 border-black pl-3 font-mono">
               Quick Navigation
             </h4>
-            <ul className="space-y-2.5 text-sm">
-              {['Home', 'Skills', 'Experience', 'Projects', 'Education', 'Contact'].map((section) => (
+            <ul className="space-y-2.5 text-xs font-mono">
+              {['Home', 'About', 'Experience', 'Projects', 'Skills', 'Education', 'Contact'].map((section) => (
                 <li key={section}>
                   <button
                     onClick={() => scrollToSection(section.toLowerCase())}
-                    className="hover:text-[#8b5cf6] font-medium transition-colors flex items-center gap-1.5 cursor-pointer text-slate-300"
+                    className="hover:underline font-bold transition-colors flex items-center gap-1.5 cursor-pointer text-black uppercase"
                   >
-                    <span className="text-[#8b5cf6]">›</span> {section}
+                    <span className="text-cv-pink font-bold">›</span> {section}
                   </button>
                 </li>
               ))}
               <li>
                 <Link
                   to="/resume"
-                  className="text-[#8b5cf6] font-bold hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer pt-1"
+                  className="text-cv-pink font-black hover:underline transition-colors flex items-center gap-1.5 cursor-pointer pt-1 uppercase"
                 >
-                  <FileText className="w-3.5 h-3.5 text-[#8b5cf6]" />
+                  <FileText className="w-3.5 h-3.5 stroke-[3px]" />
                   <span>Resume Page</span>
                 </Link>
               </li>
@@ -96,24 +96,24 @@ const Footer = () => {
 
           {/* CONTACT & LOCATION */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-l-2 border-[#8b5cf6] pl-3">
+            <h4 className="text-xs font-black text-black uppercase tracking-wider mb-4 border-l-3 border-black pl-3 font-mono">
               Direct Contact
             </h4>
-            <div className="space-y-3 text-sm font-medium">
-              <p className="flex items-start gap-2 text-slate-300">
-                <Mail className="w-4 h-4 text-[#8b5cf6] mt-0.5 flex-shrink-0" />
-                <a href="mailto:hariharansarav7@gmail.com" className="hover:text-[#8b5cf6] transition-colors">
+            <div className="space-y-3 text-xs sm:text-sm font-semibold font-body">
+              <p className="flex items-start gap-2 text-black">
+                <Mail className="w-4 h-4 text-black mt-0.5 flex-shrink-0" />
+                <a href="mailto:hariharansarav7@gmail.com" className="hover:underline transition-colors font-mono font-bold text-xs uppercase">
                   hariharansarav7@gmail.com
                 </a>
               </p>
-              <p className="flex items-center gap-2 text-slate-300">
-                <Phone className="w-4 h-4 text-[#8b5cf6] flex-shrink-0" />
-                <a href="tel:+919791680352" className="hover:text-[#8b5cf6] transition-colors">
+              <p className="flex items-center gap-2 text-black">
+                <Phone className="w-4 h-4 text-black flex-shrink-0" />
+                <a href="tel:+919791680352" className="hover:underline transition-colors font-mono font-bold text-xs">
                   +91 9791680352
                 </a>
               </p>
-              <p className="flex items-center gap-2 text-slate-300">
-                <span className="w-2 h-2 rounded-full bg-[#8b5cf6] flex-shrink-0 animate-ping" />
+              <p className="flex items-center gap-2 text-black font-mono font-bold text-xs uppercase">
+                <span className="w-2.5 h-2.5 bg-cv-green border-brutalist-thin rounded-full flex-shrink-0" />
                 <span>Coimbatore, Tamil Nadu, India</span>
               </p>
             </div>
@@ -122,19 +122,19 @@ const Footer = () => {
         </div>
 
         {/* BOTTOM BAR */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-          <p className="flex items-center gap-1.5 text-slate-400 font-bold">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs">
+          <p className="flex items-center gap-1.5 text-black font-mono font-black uppercase">
             <span>© {new Date().getFullYear()} Hariharan S. Built with</span>
-            <Code2 className="w-4 h-4 text-[#8b5cf6] inline" />
+            <Code2 className="w-4 h-4 text-black inline" />
             <span>React & Tailwind CSS.</span>
           </p>
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 bg-[#241B35] hover:bg-[#8b5cf6] text-slate-300 hover:text-white px-4 py-2 rounded-full border border-[#8b5cf6]/30 transition-all duration-200 cursor-pointer shadow-sm font-bold"
+            className="flex items-center gap-2 bg-white text-black btn-brutalist px-4 py-2 text-[10px] cursor-pointer"
           >
             <span>Back to Top</span>
-            <ArrowUp className="w-4 h-4" />
+            <ArrowUp className="w-3.5 h-3.5 stroke-[3px]" />
           </button>
         </div>
       </div>

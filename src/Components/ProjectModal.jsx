@@ -1,44 +1,44 @@
 import React from 'react';
-import { X, Award, Calendar, Layers, CheckCircle2 } from 'lucide-react';
+import { X, Award, Calendar, Layers, ArrowUpRight } from 'lucide-react';
 
 const ProjectModal = ({ project, onClose }) => {
   if (!project) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#12101C]/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-3xl bg-[#241B35] border border-[#8b5cf6]/40 rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-2xl bg-white border-brutalist shadow-brutalist-lg rounded-2xl overflow-hidden max-h-[85vh] flex flex-col">
         
-        {/* Header Banner */}
-        <div className="relative p-6 sm:p-8 bg-gradient-to-r from-[#8b5cf6]/20 via-[#241B35] to-[#12101C] border-b border-[#8b5cf6]/20">
+        {/* Header Banner - colored by project theme */}
+        <div className={`relative p-6 sm:p-8 ${project.color || 'bg-cv-yellow'} border-b-3 border-black text-black`}>
           
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 rounded-full bg-[#12101C] border border-[#8b5cf6]/30 text-slate-300 hover:text-white hover:border-[#8b5cf6] transition-colors cursor-pointer shadow-sm"
+            className="absolute top-5 right-5 p-2 bg-white hover:bg-cv-pink border-brutalist-thin text-black shadow-brutalist-sm rounded transition-colors cursor-pointer"
             aria-label="Close modal"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4 stroke-[3px]" />
           </button>
 
           {/* Award Badge if present */}
           {project.award && (
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold mb-3">
-              <Award className="w-4 h-4 text-amber-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-cv-pink border-brutalist-thin text-black text-xs font-bold font-mono uppercase tracking-wide mb-3 shadow-brutalist-sm">
+              <Award className="w-3.5 h-3.5 text-black" />
               <span>{project.award}</span>
             </div>
           )}
 
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-white pr-10">
+          <h3 className="text-xl sm:text-2xl font-black font-display text-black pr-10 tracking-tight leading-tight uppercase">
             {project.title}
           </h3>
 
-          <div className="flex flex-wrap items-center gap-4 mt-3 text-xs sm:text-sm text-slate-300">
-            <span className="flex items-center gap-1 text-[#c4b5fd] font-mono font-bold">
-              <Calendar className="w-4 h-4 text-[#8b5cf6]" />
+          <div className="flex flex-wrap items-center gap-4 mt-3 text-xs font-mono font-bold text-slate-800">
+            <span className="flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5" />
               {project.date}
             </span>
-            <span className="flex items-center gap-1 text-slate-300 font-bold">
-              <Layers className="w-4 h-4 text-[#8b5cf6]" />
+            <span className="flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5" />
               {project.category}
             </span>
           </div>
@@ -46,14 +46,14 @@ const ProjectModal = ({ project, onClose }) => {
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
+        <div className="p-6 sm:p-8 overflow-y-auto space-y-6 bg-white text-black">
           
           {/* Project Summary */}
           <div>
-            <h4 className="text-sm font-bold uppercase text-[#8b5cf6] tracking-wider mb-2 font-mono">
+            <h4 className="text-[10px] font-mono font-bold uppercase text-slate-700 tracking-wider mb-2">
               Overview & Objectives
             </h4>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-medium">
+            <p className="text-black text-sm sm:text-base leading-relaxed font-semibold font-body">
               {project.description}
             </p>
           </div>
@@ -61,13 +61,13 @@ const ProjectModal = ({ project, onClose }) => {
           {/* Key Deliverables / Features */}
           {project.features && (
             <div>
-              <h4 className="text-sm font-bold uppercase text-[#8b5cf6] tracking-wider mb-3 font-mono">
+              <h4 className="text-[10px] font-mono font-bold uppercase text-slate-700 tracking-wider mb-3">
                 Key Contributions & Highlights
               </h4>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {project.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-sm text-slate-300 bg-[#12101C]/80 p-3 rounded-xl border border-slate-800 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-[#8b5cf6] mt-0.5 flex-shrink-0" />
+                  <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-black bg-slate-50 p-3.5 rounded border-brutalist-thin font-semibold leading-relaxed hover:bg-slate-100/50 transition-colors">
+                    <span className="text-cv-pink font-extrabold text-base flex-shrink-0 mt-0.5 select-none font-mono">✦</span>
                     <span>{feat}</span>
                   </div>
                 ))}
@@ -77,14 +77,14 @@ const ProjectModal = ({ project, onClose }) => {
 
           {/* Tech Stack Tags */}
           <div>
-            <h4 className="text-sm font-bold uppercase text-[#8b5cf6] tracking-wider mb-3 font-mono">
+            <h4 className="text-[10px] font-mono font-bold uppercase text-slate-700 tracking-wider mb-3">
               Technologies Used
             </h4>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {project.tags.map((tag, tIdx) => (
                 <span
                   key={tIdx}
-                  className="px-3 py-1 rounded-lg bg-[#12101C] border border-[#8b5cf6]/30 text-xs font-bold text-slate-200"
+                  className="px-2.5 py-1 bg-white border-brutalist-thin text-[10px] sm:text-xs font-mono font-bold text-black uppercase hover:bg-cv-yellow transition-colors cursor-pointer"
                 >
                   {tag}
                 </span>
@@ -95,14 +95,25 @@ const ProjectModal = ({ project, onClose }) => {
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 sm:p-6 bg-[#12101C] border-t border-[#8b5cf6]/20 flex items-center justify-between">
-          <p className="text-xs text-slate-400 font-bold">Hariharan S • Portfolio Showcase</p>
-          <button
-            onClick={onClose}
-            className="px-5 py-2.5 rounded-xl bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-bold text-sm transition-colors cursor-pointer shadow-md"
-          >
-            Close
-          </button>
+        <div className="p-4 sm:p-6 bg-slate-50 border-t-3 border-black flex items-center justify-between">
+          <p className="text-[10px] sm:text-xs text-black font-black font-mono uppercase tracking-wider">HS • SHOWCASE</p>
+          <div className="flex items-center gap-3">
+            <a
+              href={project.liveLink}
+              target="_blank"
+              rel="noreferrer"
+              className="px-4 py-2 bg-white border-brutalist shadow-brutalist-sm text-black hover:bg-black/5 font-mono font-bold text-xs uppercase transition-all flex items-center gap-1.5 cursor-pointer"
+            >
+              <span>Visit Site</span>
+              <ArrowUpRight className="w-4 h-4 text-black" />
+            </a>
+            <button
+              onClick={onClose}
+              className="px-5 py-2.5 bg-cv-green text-black btn-brutalist text-xs cursor-pointer"
+            >
+              Close
+            </button>
+          </div>
         </div>
 
       </div>

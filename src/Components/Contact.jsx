@@ -1,231 +1,249 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Send, CheckCircle, FileText, MessageSquare } from 'lucide-react';
+import { Mail, Globe, Send, CheckCircle2 } from 'lucide-react';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-
+  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
+    if (!formState.name || !formState.email || !formState.message) return;
 
+    // Prefill mailto subject and body properties
+    const subject = encodeURIComponent(`Portfolio Message from ${formState.name}`);
+    const body = encodeURIComponent(
+      `Hi Hariharan,\n\nYou received a new message from your portfolio contact form:\n\nSender: ${formState.name}\nEmail: ${formState.email}\n\nMessage:\n${formState.message}\n\nBest regards,\n${formState.name}`
+    );
+
+    // Redirect to default mail client prefilled
+    window.location.href = `mailto:hariharansarav7@gmail.com?subject=${subject}&body=${body}`;
+
+    setSubmitted(true);
     setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setSubmitted(false);
+      setFormState({ name: '', email: '', message: '' });
+    }, 4000);
+  };
 
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 5000);
-    }, 1000);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#12101C] relative overflow-hidden">
-      {/* Background Orbs */}
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#8b5cf6]/10 rounded-full blur-3xl pointer-events-none" />
+    <section id="contact" className="py-24 bg-cv-bg relative overflow-hidden">
+      {/* Decorative Background Stamps */}
+      <div className="absolute top-12 left-10 w-24 h-24 bg-cv-pink border-brutalist rounded-full rotate-[-12deg] opacity-75 hidden md:flex items-center justify-center font-mono font-bold text-center text-[10px] leading-tight shadow-brutalist-sm select-none pointer-events-none p-2 uppercase z-0">
+        <span>Inquire Direct Console</span>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Title */}
-        <div className="text-center space-y-3 mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#241B35] border border-[#8b5cf6]/40 text-[#c4b5fd] text-xs font-bold uppercase tracking-wider">
-            <MessageSquare className="w-3.5 h-3.5 text-[#8b5cf6]" />
-            <span>Get In Touch</span>
+
+        {/* Section Header */}
+        <div className="text-center space-y-4 mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-cv-yellow text-black border-brutalist shadow-brutalist-sm text-xs font-mono font-bold uppercase tracking-wider">
+            <Mail className="w-4 h-4 text-black" />
+            <span>GET IN TOUCH</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            Let's Build Something <span className="gradient-text-violet font-black">Together</span>
+          <h2 className="text-3xl sm:text-5xl font-black font-display text-black uppercase">
+            SEND A POSTCARD<span className="text-cv-pink font-black text-4xl">.</span>
           </h2>
-          <p className="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
-            Have a project, internship opportunity, or question? Feel free to send a message or contact me directly.
+          <p className="text-black max-w-2xl mx-auto text-sm sm:text-base font-semibold font-body">
+            Drop a message directly onto this retro postcard to initiate a project proposal or collaboration request.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
-          {/* Direct Contact Cards Side */}
-          <div className="lg:col-span-5 space-y-6">
-            
-            <div className="glass-card-violet rounded-3xl p-6 sm:p-8 border border-[#8b5cf6]/20 bg-[#241B35]/80 space-y-6">
-              <h3 className="text-xl font-bold text-white mb-2">
-                Contact Information
+        {/* SINGLE UNIFIED RETRO POSTCARD CARD */}
+        <div className="relative bg-[#FAF9F6] border-brutalist shadow-brutalist-lg rounded-2xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch overflow-hidden text-black hover:rotate-[-0.3deg] transition-transform duration-300">
+
+          {/* Postcard Center Dashed Division Line (Desktop Only) */}
+          <div className="hidden lg:block absolute left-[56%] top-8 bottom-8 w-0.5 border-l-2 border-dashed border-slate-350 pointer-events-none" />
+
+          {/* LEFT COLUMN: WRITING PANEL / CONTACT FORM (7 Cols) */}
+          <div className="lg:col-span-7 flex flex-col justify-between space-y-6 text-left pr-0 lg:pr-6">
+
+            {/* Form Header */}
+            <div>
+              <span className="px-2 py-0.5 bg-black text-white text-[9px] font-black font-mono tracking-wider uppercase rounded">
+                MESSAGE SHEET
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black font-display text-black uppercase mt-2">
+                Dear Hariharan,
               </h3>
-              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-                Available for full-time full stack roles, freelance projects, and research collaborations.
-              </p>
-
-              <div className="space-y-4 pt-2">
-                
-                {/* Email Item */}
-                <a
-                  href="mailto:hariharansarav7@gmail.com"
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-[#12101C] border border-[#8b5cf6]/30 hover:border-[#8b5cf6] transition-all group"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-[#8b5cf6]/20 border border-[#8b5cf6]/40 flex items-center justify-center text-[#c4b5fd] group-hover:scale-110 transition-transform">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] text-slate-400 uppercase font-mono font-bold">Email Address</p>
-                    <p className="text-sm font-bold text-white group-hover:text-[#c4b5fd] transition-colors">
-                      hariharansarav7@gmail.com
-                    </p>
-                  </div>
-                </a>
-
-                {/* Phone Item */}
-                <a
-                  href="tel:+919791680352"
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-[#12101C] border border-[#8b5cf6]/30 hover:border-[#8b5cf6] transition-all group"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-[#8b5cf6]/20 border border-[#8b5cf6]/40 flex items-center justify-center text-[#c4b5fd] group-hover:scale-110 transition-transform">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] text-slate-400 uppercase font-mono font-bold">Phone Number</p>
-                    <p className="text-sm font-bold text-white group-hover:text-[#c4b5fd] transition-colors">
-                      +91 9791680352
-                    </p>
-                  </div>
-                </a>
-
-                {/* Location Item */}
-                <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#12101C] border border-slate-800">
-                  <div className="w-11 h-11 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-[#8b5cf6]">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] text-slate-400 uppercase font-mono font-bold">Location</p>
-                    <p className="text-sm font-bold text-white">
-                      Coimbatore, Tamil Nadu, India
-                    </p>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* View Separate Resume Page Quick Link */}
-              <div className="pt-4 border-t border-slate-800">
-                <Link
-                  to="/resume"
-                  className="w-full py-3.5 rounded-2xl bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-extrabold text-sm shadow-lg shadow-[#8b5cf6]/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <FileText className="w-4 h-4" />
-                  <span>View Separate Resume Page</span>
-                </Link>
-              </div>
-
             </div>
 
-          </div>
+            {submitted ? (
+              /* Submission Success UI */
+              <div className="flex-1 flex flex-col items-center justify-center text-center p-8 bg-slate-50 border-brutalist-thin rounded-xl animate-in zoom-in duration-200">
+                <CheckCircle2 className="w-12 h-12 text-cv-green stroke-[2.5px] mb-4" />
+                <h4 className="text-lg font-black font-display text-black uppercase">Postcard Sent!</h4>
+                <p className="text-xs font-bold text-slate-600 mt-2 max-w-xs font-mono uppercase">
+                  Thank you for writing. I will inspect your message and reply as soon as possible.
+                </p>
+              </div>
+            ) : (
+              /* Handwritten Form inputs */
+              <form onSubmit={handleSubmit} className="flex-1 space-y-6 font-body">
 
-          {/* Form Side */}
-          <div className="lg:col-span-7">
-            <div className="glass-card-violet rounded-3xl p-6 sm:p-8 border border-[#8b5cf6]/20 bg-[#241B35]/80 relative">
-              
-              {submitted && (
-                <div className="mb-6 p-4 rounded-2xl bg-[#8b5cf6]/20 border border-[#8b5cf6]/50 text-[#c4b5fd] flex items-center gap-3 animate-in fade-in">
-                  <CheckCircle className="w-5 h-5 text-[#8b5cf6] flex-shrink-0" />
-                  <p className="text-xs sm:text-sm font-bold">
-                    Thank you! Your message has been sent successfully. Hariharan will get back to you shortly.
-                  </p>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-xs font-bold uppercase text-slate-400 font-mono mb-2">
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="e.g. John Doe"
-                      className="w-full px-4 py-3 rounded-xl bg-[#12101C] border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-[#8b5cf6] text-sm font-semibold"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold uppercase text-slate-400 font-mono mb-2">
-                      Your Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="john@example.com"
-                      className="w-full px-4 py-3 rounded-xl bg-[#12101C] border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-[#8b5cf6] text-sm font-semibold"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase text-slate-400 font-mono mb-2">
-                    Subject
+                {/* Name line */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-[9px] sm:text-[10px] font-black text-slate-500 uppercase block tracking-wider">
+                    1. Write your full name here:
                   </label>
                   <input
                     type="text"
-                    name="subject"
+                    name="name"
+                    value={formState.name}
+                    onChange={handleInputChange}
                     required
-                    value={formData.subject}
-                    onChange={handleChange}
-                    placeholder="Project Inquiry / Job Opportunity"
-                    className="w-full px-4 py-3 rounded-xl bg-[#12101C] border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-[#8b5cf6] text-sm font-semibold"
+                    placeholder="Enter name..."
+                    className="w-full bg-transparent border-b-3 border-black pb-1.5 text-xs sm:text-sm font-semibold font-body text-black focus:outline-none focus:border-cv-pink transition-colors"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-xs font-bold uppercase text-slate-400 font-mono mb-2">
-                    Message
+                {/* Email line */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-[9px] sm:text-[10px] font-black text-slate-500 uppercase block tracking-wider">
+                    2. Provide your response email:
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formState.email}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Enter email address..."
+                    className="w-full bg-transparent border-b-3 border-black pb-1.5 text-xs sm:text-sm font-semibold font-body text-black focus:outline-none focus:border-cv-pink transition-colors"
+                  />
+                </div>
+
+                {/* Message line */}
+                <div className="space-y-1.5">
+                  <label className="font-mono text-[9px] sm:text-[10px] font-black text-slate-500 uppercase block tracking-wider">
+                    3. Type your postcard message below:
                   </label>
                   <textarea
                     name="message"
-                    rows="5"
+                    value={formState.message}
+                    onChange={handleInputChange}
                     required
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Write your message here..."
-                    className="w-full px-4 py-3 rounded-xl bg-[#12101C] border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-[#8b5cf6] text-sm font-semibold resize-none"
-                  ></textarea>
+                    rows={4}
+                    placeholder="Describe your project, timeline, or request..."
+                    className="w-full bg-transparent border-b-3 border-black pb-1.5 text-xs sm:text-sm font-semibold font-body text-black focus:outline-none focus:border-cv-pink resize-none transition-colors"
+                  />
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-4 rounded-xl bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-extrabold text-sm shadow-xl shadow-[#8b5cf6]/35 hover:shadow-[#8b5cf6]/55 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  {loading ? (
-                    <span>Sending Message...</span>
-                  ) : (
-                    <>
-                      <span>Send Message</span>
-                      <Send className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
+                {/* Send Button */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className="px-5 py-3 bg-cv-yellow text-black border-brutalist shadow-brutalist-sm text-xs font-mono font-black uppercase hover:bg-slate-50 hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer inline-flex items-center gap-2"
+                  >
+                    <span>Mails Postcard</span>
+                    <Send className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </form>
+            )}
+          </div>
 
+          {/* RIGHT COLUMN: MAILING DETAILS & POSTAGE STAMPS (5 Cols) */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-8 pl-0 lg:pl-10 text-left pt-6 lg:pt-0">
+
+            {/* Stamp Section */}
+            <div className="flex justify-between items-start">
+              <span className="text-[8px] font-mono font-black text-slate-400 uppercase tracking-widest leading-none pt-2">
+                AFFIX STAMP HERE
+              </span>
+
+              {/* POSTAGE STAMP BOX */}
+              <div className="relative">
+                {/* Stamp border (scalloped block) */}
+                <div className="w-24 h-28 bg-cv-yellow border-brutalist rounded p-2 flex flex-col justify-between text-black relative z-10 select-none shadow-brutalist-sm hover:rotate-[1deg] transition-transform">
+                  <div className="flex items-center justify-between text-[7px] font-mono font-black uppercase leading-none">
+                    <span>COIMBATORE</span>
+                    <span>15¢</span>
+                  </div>
+                  {/* Stamp Illustration */}
+                  <div className="w-full h-14 border border-black bg-white rounded flex items-center justify-center p-1 font-mono text-[7px] font-black text-center uppercase tracking-tighter">
+                    <div>
+                      <span>✦ DEV PASS ✦</span>
+                      <div className="w-12 h-5 barcode-stripes border border-black mt-1 mx-auto" />
+                    </div>
+                  </div>
+                  <div className="text-[6.5px] font-mono font-black text-center uppercase tracking-widest leading-none">
+                    H.S. PORTFOLIO
+                  </div>
+                </div>
+
+                {/* Circular Postmark Ink Seal Overlaid */}
+                <div className="absolute -top-4 -left-6 w-16 h-16 border-2 border-dashed border-slate-700/60 rounded-full flex items-center justify-center select-none pointer-events-none rotate-[-15deg] z-20 font-mono text-[6px] font-black text-slate-700/60 uppercase text-center p-1">
+                  <div>
+                    <span>DELIVERED PO</span>
+                    <br />
+                    <span>2026</span>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {/* Address Details Section */}
+            <div className="space-y-4 pt-4 border-t border-black/10">
+              <h4 className="text-xs font-mono font-black text-slate-500 uppercase tracking-widest leading-none">
+                DELIVER ADDRESS:
+              </h4>
+
+              {/* Address rows resembling handwritten blocks */}
+              <div className="space-y-3 font-mono text-xs font-bold text-black uppercase">
+                <div className="flex items-start gap-2">
+                  <span className="text-slate-400">TO:</span>
+                  <div>
+                    <p className="font-black text-sm font-display leading-none">HARIHARAN S.</p>
+                    <p className="text-[9px] text-slate-500 leading-normal mt-0.5">FULLSTACK ENGINEER & UI/UX</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 border-b border-black/10 pb-1">
+                  <span className="text-slate-400">ADD:</span>
+                  <a href="mailto:hariharansarav7@gmail.com" className="hover:underline tracking-tight truncate">
+                    hariharansarav7@gmail.com
+                  </a>
+                </div>
+
+                <div className="flex items-center gap-2 border-b border-black/10 pb-1">
+                  <span className="text-slate-400">TEL:</span>
+                  <span className="tracking-wide">+91 97916 80352</span>
+                </div>
+
+                <div className="flex items-center gap-2 border-b border-black/10 pb-1">
+                  <span className="text-slate-400">LOC:</span>
+                  <span className="tracking-wide">Coimbatore, Tamil Nadu, IN</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Stamp Links */}
+            <div className="pt-4 border-t-2 border-black flex flex-wrap items-center gap-2">
+              <a
+                href="https://github.com/Hariharansarav"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1.5 text-[9px] font-mono font-black text-black border-brutalist-thin shadow-brutalist-sm bg-white hover:bg-cv-pink px-2.5 py-1 rounded transition-colors uppercase tracking-wider"
+              >
+                <Globe className="w-3.5 h-3.5" />
+                <span>GitHub</span>
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1.5 text-[9px] font-mono font-black text-black border-brutalist-thin shadow-brutalist-sm bg-white hover:bg-cv-pink px-2.5 py-1 rounded transition-colors uppercase tracking-wider"
+              >
+                <Globe className="w-3.5 h-3.5" />
+                <span>LinkedIn</span>
+              </a>
+            </div>
+
           </div>
 
         </div>
