@@ -24,22 +24,98 @@
 }
 
 @layer base {
+  :root {
+    --theme-bg: #DBE2E9;
+    --theme-card-bg: #FFFFFF;
+    --theme-card-sub-bg: #F8FAFC;
+    --theme-text: #000000;
+  }
+
+  html.dark {
+    --theme-bg: #0F1217;
+    --theme-card-bg: #161A22;
+    --theme-card-sub-bg: #212630;
+    --theme-text: #FFFFFF;
+  }
+
   html {
     scroll-behavior: smooth;
     font-family: var(--font-body);
-    background-color: var(--color-cv-bg);
-    color: #000000;
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   body {
     overflow-x: hidden;
-    background-color: var(--color-cv-bg);
-    color: #000000;
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   ::selection {
     background-color: #000000;
     color: var(--color-cv-yellow);
+  }
+
+  /* Force dark overrides globally to maintain brutalist consistency */
+  html.dark body {
+    background-color: var(--theme-bg) !important;
+    color: var(--theme-text) !important;
+  }
+
+  html.dark #about,
+  html.dark #skills,
+  html.dark #experience,
+  html.dark #projects,
+  html.dark #education,
+  html.dark #contact,
+  html.dark footer {
+    background-color: var(--theme-bg) !important;
+    color: var(--theme-text) !important;
+  }
+
+  html.dark .bg-cv-bg {
+    background-color: var(--theme-bg) !important;
+  }
+
+  html.dark .bg-white {
+    background-color: var(--theme-card-bg) !important;
+    color: var(--theme-text) !important;
+  }
+
+  html.dark .bg-slate-50 {
+    background-color: var(--theme-card-sub-bg) !important;
+    color: var(--theme-text) !important;
+  }
+
+  html.dark .postcard-container {
+    background-color: var(--theme-card-bg) !important;
+    color: var(--theme-text) !important;
+  }
+
+  html.dark .text-black {
+    color: var(--theme-text) !important;
+  }
+
+  html.dark .text-slate-700 {
+    color: #94a3b8 !important;
+  }
+
+  html.dark .text-slate-800 {
+    color: #cbd5e1 !important;
+  }
+
+  html.dark .text-slate-500 {
+    color: #64748b !important;
+  }
+
+  html.dark .border-black {
+    border-color: #000000 !important;
+  }
+
+  html.dark .border-slate-350 {
+    border-color: #334155 !important;
   }
 }
 
@@ -127,6 +203,28 @@
     transparent 22px
   );
   background-size: 32px 100%;
+}
+
+html.dark .barcode-stripes {
+  background-image: repeating-linear-gradient(
+    90deg,
+    #ffffff,
+    #ffffff 2px,
+    transparent 2px,
+    transparent 5px,
+    #ffffff 5px,
+    #ffffff 7px,
+    transparent 7px,
+    transparent 11px,
+    #ffffff 11px,
+    #ffffff 12px,
+    transparent 12px,
+    transparent 16px,
+    #ffffff 16px,
+    #ffffff 20px,
+    transparent 20px,
+    transparent 22px
+  ) !important;
 }
 
 /* Postage Stamp Border Effect */
@@ -251,4 +349,168 @@
 .animate-marquee-right {
   animation: marquee-right 25s linear infinite;
 }
+
+/* Cyber Scanning Line Effect */
+@keyframes scanline {
+  0% {
+    top: 0%;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0%;
+  }
+}
+
+.animate-scanline {
+  animation: scanline 4s linear infinite;
+}
+
+/* Subtle Bobbing Animation (No Rotation) */
+@keyframes bobbing {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-bobbing {
+  animation: bobbing 3.5s ease-in-out infinite;
+}
+
+/* Retro Terminal Cursor Blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Cyber Grid/Radar Overlay background */
+.bg-grid-cyber {
+  background-size: 12px 12px;
+  background-image: linear-gradient(to right, rgba(34, 211, 238, 0.1) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(34, 211, 238, 0.1) 1px, transparent 1px);
+}
+
+html.dark .bg-grid-cyber {
+  background-image: linear-gradient(to right, rgba(244, 114, 182, 0.1) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(244, 114, 182, 0.1) 1px, transparent 1px) !important;
+}
+
+/* Scan-line background noise */
+.bg-scan-noise {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.15) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.04), 
+    rgba(0, 255, 0, 0.02), 
+    rgba(0, 0, 255, 0.04)
+  );
+  background-size: 100% 4px, 6px 100%;
+}
+
+html.dark .bg-scan-noise {
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.05) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.06), 
+    rgba(0, 255, 0, 0.03), 
+    rgba(0, 0, 255, 0.06)
+  ) !important;
+  background-size: 100% 4px, 6px 100% !important;
+}
+
+/* Custom Interactive Cursor Styling */
+@media (min-width: 768px) {
+  html, body, a, button, select, input, textarea, [role="button"], .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #000000;
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
+}
+
+html.dark .custom-cursor-dot {
+  background-color: #ffffff !important;
+}
+
+.custom-cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+  transition: width 0.2s cubic-bezier(0.25, 1, 0.5, 1), 
+              height 0.2s cubic-bezier(0.25, 1, 0.5, 1), 
+              border-color 0.2s ease, 
+              background-color 0.2s ease, 
+              transform 0.06s ease-out;
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.15);
+}
+
+html.dark .custom-cursor-ring {
+  border-color: #ffffff !important;
+  box-shadow: 2px 2px 0px 0px rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Rotating Marquee Border Animations */
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes scroll-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes scroll-down {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 25s linear infinite;
+}
+
+.animate-scroll-right {
+  animation: scroll-right 25s linear infinite;
+}
+
+.animate-scroll-up {
+  animation: scroll-up 25s linear infinite;
+}
+
+.animate-scroll-down {
+  animation: scroll-down 25s linear infinite;
+}
+
+
 

@@ -72,7 +72,7 @@ const Footer = () => {
               Quick Navigation
             </h4>
             <ul className="space-y-2.5 text-xs font-mono">
-              {['Home', 'About', 'Experience', 'Projects', 'Skills', 'Education', 'Contact'].map((section) => (
+              {['Home', 'About', 'Experience', 'Projects', 'Education', 'Contact'].map((section) => (
                 <li key={section}>
                   <button
                     onClick={() => scrollToSection(section.toLowerCase())}

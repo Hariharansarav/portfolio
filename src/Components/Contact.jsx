@@ -54,7 +54,7 @@ const Contact = () => {
         </div>
 
         {/* SINGLE UNIFIED RETRO POSTCARD CARD */}
-        <div className="relative bg-[#FAF9F6] border-brutalist shadow-brutalist-lg rounded-2xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch overflow-hidden text-black hover:rotate-[-0.3deg] transition-transform duration-300">
+        <div className="relative bg-[#FAF9F6] postcard-container border-brutalist shadow-brutalist-lg rounded-2xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch overflow-hidden text-black hover:rotate-[-0.3deg] transition-transform duration-300">
 
           {/* Postcard Center Dashed Division Line (Desktop Only) */}
           <div className="hidden lg:block absolute left-[56%] top-8 bottom-8 w-0.5 border-l-2 border-dashed border-slate-350 pointer-events-none" />

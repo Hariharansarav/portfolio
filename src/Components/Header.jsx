@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, Download, FileText, Sparkles } from 'lucide-react';
-import resumePDF from '../assets/Hariharan CV.pdf';
+import { Menu, X, FileText, Sparkles, Sun, Moon } from 'lucide-react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,6 +8,29 @@ const Header = () => {
   const [activeSection, setActiveSection] = useState('home');
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Initialize theme from localStorage, default to light mode
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || 'light';
+    }
+    return 'light';
+  });
+
+  // Apply theme class to document tag dynamically
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,7 +41,7 @@ const Header = () => {
       }
 
       if (location.pathname === '/') {
-        const sections = ['home', 'about', 'experience', 'projects', 'skills', 'education', 'contact'];
+        const sections = ['home', 'about', 'experience', 'projects', 'education', 'contact'];
         const scrollPosition = window.scrollY + 200;
 
         for (const section of sections) {
@@ -58,27 +80,18 @@ const Header = () => {
     }
   };
 
-  const handleResumeDownload = () => {
-    const link = document.createElement('a');
-    link.href = resumePDF;
-    link.download = 'Hariharan_S_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+
 
   const navItems = [
-    { label: 'Home', id: 'home' },
     { label: 'About', id: 'about' },
     { label: 'Experience', id: 'experience' },
     { label: 'Projects', id: 'projects' },
-    { label: 'Skills', id: 'skills' },
     { label: 'Education', id: 'education' },
     { label: 'Contact', id: 'contact' },
   ];
 
   return (
-    <header className="fixed left-0 right-0 z-50 top-4 px-4 sm:px-6">
+    <header className="fixed left-0 right-0 top-0 z-40 p-6">
       <div
         className={`max-w-7xl mx-auto bg-white border-brutalist text-black px-5 py-3 transition-all duration-300 ${
           isScrolled
@@ -122,25 +135,38 @@ const Header = () => {
 
           {/* RIGHT ACTION BUTTONS */}
           <div className="hidden md:flex items-center gap-4">
+            
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="w-8 h-8 rounded border-2 border-black flex items-center justify-center shadow-brutalist-sm hover:translate-x-[-1px] hover:translate-y-[-1px] hover:bg-slate-50 transition-all cursor-pointer bg-white text-black"
+              aria-label="Toggle Theme"
+              title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            >
+              {theme === 'light' ? <Moon className="w-4.5 h-4.5 text-black" /> : <Sun className="w-4.5 h-4.5 text-black" />}
+            </button>
+
             <Link
               to="/resume"
-              className="flex items-center gap-1.5 text-black hover:text-black hover:underline font-mono font-bold text-xs transition-all"
+              className="flex items-center gap-2 bg-cv-green text-black btn-brutalist px-4 py-2 text-xs cursor-pointer shadow-brutalist-sm hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
             >
-              <FileText className="w-4 h-4 stroke-[2px]" />
-              <span>RESUME PAGE</span>
+              <FileText className="w-4 h-4 stroke-[3px]" />
+              <span>RESUME</span>
             </Link>
-
-            <button
-              onClick={handleResumeDownload}
-              className="flex items-center gap-2 bg-cv-green text-black btn-brutalist px-4 py-2 text-xs cursor-pointer"
-            >
-              <Download className="w-3.5 h-3.5 stroke-[3px]" />
-              <span>DOWNLOAD CV</span>
-            </button>
           </div>
 
-          {/* MOBILE TOGGLE */}
-          <div className="flex lg:hidden items-center">
+          {/* MOBILE TOGGLE & THEME BTN */}
+          <div className="flex lg:hidden items-center gap-2">
+            
+            {/* Mobile Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="w-8 h-8 rounded border-2 border-black flex items-center justify-center shadow-brutalist-sm hover:translate-x-[-1px] hover:translate-y-[-1px] hover:bg-slate-50 transition-all cursor-pointer bg-white text-black"
+              aria-label="Toggle Theme"
+            >
+              {theme === 'light' ? <Moon className="w-4.5 h-4.5 text-black" /> : <Sun className="w-4.5 h-4.5 text-black" />}
+            </button>
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-black hover:bg-cv-yellow bg-white border-brutalist-thin rounded-lg focus:outline-none shadow-brutalist-sm transition-colors"
@@ -176,19 +202,11 @@ const Header = () => {
             <Link
               to="/resume"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 bg-white border-brutalist shadow-brutalist-sm text-black hover:bg-black/5 font-mono font-bold py-2.5 rounded text-xs"
-            >
-              <FileText className="w-4 h-4 text-black" />
-              <span>GO TO RESUME PAGE</span>
-            </Link>
-            
-            <button
-              onClick={handleResumeDownload}
               className="w-full flex items-center justify-center gap-2 bg-cv-green text-black btn-brutalist py-2.5 rounded text-xs cursor-pointer"
             >
-              <Download className="w-4 h-4 stroke-[3px]" />
-              <span>DOWNLOAD RESUME PDF</span>
-            </button>
+              <FileText className="w-4 h-4 text-black stroke-[3px]" />
+              <span>RESUME</span>
+            </Link>
           </div>
         </div>
       )}
