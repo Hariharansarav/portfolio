@@ -111,8 +111,15 @@ const Header = () => {
             }}
             className="flex items-center gap-1.5 group cursor-pointer"
           >
-            <span className="text-xl sm:text-2xl font-black font-display tracking-tight text-black hover:text-black">
-              HARIHARAN<span className="text-cv-yellow select-none font-black text-2xl font-display inline-block animate-bounce">.</span>
+            <span className="text-xl sm:text-2xl font-black font-display tracking-tight text-black hover:text-black inline-flex items-baseline">
+              <span>HAR</span>
+              <span className="relative inline-block">
+                <span>ı</span>
+                <span className="absolute -top-[0.6em] left-1/2 -translate-x-1/2 text-cv-yellow select-none font-black text-2xl font-display inline-block animate-bounce">
+                  .
+                </span>
+              </span>
+              <span>HARAN</span>
             </span>
           </Link>
 
