@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { 
   ArrowLeft, Download, Printer, Share2, Mail, Phone, MapPin, 
   Briefcase, GraduationCap, Award, Code2, Sparkles, FileText, Check, ArrowUpRight 
@@ -8,7 +8,20 @@ import resumePDF from '../assets/Hariharan CV.pdf';
 
 const ResumePage = () => {
   const [copied, setCopied] = useState(false);
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [routerSearchParams, setRouterSearchParams] = useSearchParams();
+  const filterParam = routerSearchParams.get('filter') || 'all';
+  const [activeFilter, setActiveFilter] = useState(filterParam);
+
+  // Sync search parameters when route query changes
+  useEffect(() => {
+    const currentFilter = routerSearchParams.get('filter') || 'all';
+    setActiveFilter(currentFilter);
+  }, [routerSearchParams]);
+
+  const handleFilterClick = (filterId) => {
+    setActiveFilter(filterId);
+    setRouterSearchParams({ filter: filterId });
+  };
 
   const handleDownload = () => {
     const link = document.createElement('a');
@@ -254,7 +267,7 @@ const ResumePage = () => {
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveFilter(tab.id)}
+              onClick={() => handleFilterClick(tab.id)}
               className={`px-4 py-2 font-mono font-bold text-xs uppercase tracking-wider transition-all duration-100 cursor-pointer ${
                 activeFilter === tab.id
                   ? 'bg-cv-yellow text-black border-brutalist shadow-brutalist-sm translate-x-[-1px] translate-y-[-1px]'
