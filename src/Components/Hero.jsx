@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, FileText, Globe } from 'lucide-react';
+import { ArrowRight, FileText, Globe, Briefcase } from 'lucide-react';
 import resumePDF from '../assets/Hariharan CV.pdf';
 
 const Hero = () => {
@@ -246,13 +246,15 @@ const Hero = () => {
               </div>
 
               {/* Floating Badge 2: Bottom Left - DEPLOYMENTS */}
-              <div className="absolute -bottom-4 -left-4 z-20 bg-cv-pink text-black border-brutalist px-3 py-1.5 font-mono text-[9px] font-black uppercase tracking-wide shadow-brutalist-sm rounded flex items-center gap-1 select-none pointer-events-none">
-                <span>🎗 5+ DEPLOYMENTS</span>
+              <div className="absolute -bottom-4 -left-4 z-20 bg-cv-pink text-black border-brutalist px-3 py-1.5 font-mono text-[9px] font-black uppercase tracking-wide shadow-brutalist-sm rounded flex items-center gap-1.5 select-none pointer-events-none">
+                <Globe className="w-3.5 h-3.5 stroke-[2.5px]" />
+                <span>5+ DEPLOYMENTS</span>
               </div>
 
               {/* Floating Badge 3: Bottom Right - INTERNSHIPS */}
-              <div className="absolute -bottom-4 -right-4 z-20 bg-cv-cyan text-black border-brutalist px-3 py-1.5 font-mono text-[9px] font-black uppercase tracking-wide shadow-brutalist-sm rounded flex items-center gap-1 select-none pointer-events-none">
-                <span>💼 4+ INTERNSHIPS</span>
+              <div className="absolute -bottom-4 -right-4 z-20 bg-cv-cyan text-black border-brutalist px-3 py-1.5 font-mono text-[9px] font-black uppercase tracking-wide shadow-brutalist-sm rounded flex items-center gap-1.5 select-none pointer-events-none">
+                <Briefcase className="w-3.5 h-3.5 stroke-[2.5px]" />
+                <span>4+ INTERNSHIPS</span>
               </div>
 
               {/* The Brutalist UNIX Terminal window container */}
