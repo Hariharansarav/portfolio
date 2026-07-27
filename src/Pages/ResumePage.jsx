@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { 
-  ArrowLeft, Download, Printer, Share2, Mail, Phone, MapPin, 
-  Briefcase, GraduationCap, Award, Code2, Sparkles, FileText, Check, ArrowUpRight 
+import {
+  ArrowLeft, Download, Share2, Mail, Phone, MapPin,
+  Briefcase, GraduationCap, Award, Code2, Sparkles, FileText, Check, ArrowUpRight
 } from 'lucide-react';
 import resumePDF from '../assets/Hariharan CV.pdf';
 
@@ -32,10 +32,6 @@ const ResumePage = () => {
     document.body.removeChild(link);
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
     setCopied(true);
@@ -47,7 +43,7 @@ const ResumePage = () => {
       role: 'Full Stack Developer Intern',
       company: 'KG Agile',
       location: 'Coimbatore',
-      period: 'Feb 2026 – Present',
+      period: 'Feb 2026 – April 2026',
       points: [
         'Worked on full-stack web application development using Next.js, React.js, Express.js, and MongoDB.',
         'Contributed to frontend development, backend integration, and REST API implementation.',
@@ -98,7 +94,7 @@ const ResumePage = () => {
   const projects = [
     {
       title: 'Smart Tribal Farming Project',
-      date: 'Present (Ongoing)',
+      date: 'Sept 2025',
       award: 'Best Paper Award Winner 🏆',
       tech: 'React.js, AI/ML, Data Analysis, Web Technologies',
       liveLink: 'https://smart-tribal-farming.onrender.com/',
@@ -163,7 +159,7 @@ const ResumePage = () => {
 
       {/* TOP NAVIGATION BAR */}
       <div className="max-w-4xl mx-auto mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
-        
+
         {/* Back Link */}
         <Link
           to="/"
@@ -184,15 +180,6 @@ const ResumePage = () => {
           </button>
 
           <button
-            onClick={handlePrint}
-            className="inline-flex items-center gap-2 bg-white text-black btn-brutalist px-3.5 py-2.5 text-xs cursor-pointer hidden sm:inline-flex"
-            title="Print Resume"
-          >
-            <Printer className="w-4 h-4 text-black" />
-            <span>PRINT</span>
-          </button>
-
-          <button
             onClick={handleShare}
             className="inline-flex items-center gap-2 bg-white text-black btn-brutalist px-3.5 py-2.5 text-xs cursor-pointer"
             title="Share Resume Link"
@@ -206,18 +193,12 @@ const ResumePage = () => {
 
       {/* DIGITAL RESUME SHEET */}
       <main className="max-w-4xl mx-auto bg-white border-brutalist shadow-brutalist-lg rounded-2xl p-6 sm:p-10 lg:p-12 relative z-10">
-        
+
         {/* RESUME HEADER */}
         <div className="border-b-3 border-black pb-8 mb-8 relative">
-          
-          {/* Aesthetic Barcode on top corner */}
-          <div className="absolute top-0 right-0 hidden md:flex flex-col items-end gap-1">
-            <div className="w-32 h-10 barcode-stripes border-brutalist-thin rounded" />
-            <span className="font-mono text-[8px] font-black tracking-widest text-black">CV ID: 9791680352</span>
-          </div>
 
           <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6 text-center md:text-left">
-            
+
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-cv-yellow text-black border-brutalist-thin text-[10px] font-bold uppercase tracking-wider font-mono shadow-brutalist-sm">
                 <Sparkles className="w-3.5 h-3.5 text-black" />
@@ -268,11 +249,10 @@ const ResumePage = () => {
             <button
               key={tab.id}
               onClick={() => handleFilterClick(tab.id)}
-              className={`px-4 py-2 font-mono font-bold text-xs uppercase tracking-wider transition-all duration-100 cursor-pointer ${
-                activeFilter === tab.id
-                  ? 'bg-cv-yellow text-black border-brutalist shadow-brutalist-sm translate-x-[-1px] translate-y-[-1px]'
-                  : 'bg-white text-black border-brutalist shadow-brutalist-sm hover:bg-black/5'
-              }`}
+              className={`px-4 py-2 font-mono font-bold text-xs uppercase tracking-wider transition-all duration-100 cursor-pointer ${activeFilter === tab.id
+                ? 'bg-cv-yellow text-black border-brutalist shadow-brutalist-sm translate-x-[-1px] translate-y-[-1px]'
+                : 'bg-white text-black border-brutalist shadow-brutalist-sm hover:bg-black/5'
+                }`}
             >
               {tab.label}
             </button>
@@ -355,14 +335,14 @@ const ResumePage = () => {
                         </span>
                       )}
                     </div>
-                    
+
                     <div className="flex items-center justify-between gap-2">
                       <h4 className="text-sm sm:text-base font-black font-display text-black mb-1 leading-snug uppercase">{proj.title}</h4>
                       {proj.liveLink && (
-                        <a 
-                          href={proj.liveLink} 
-                          target="_blank" 
-                          rel="noreferrer" 
+                        <a
+                          href={proj.liveLink}
+                          target="_blank"
+                          rel="noreferrer"
                           className="text-black hover:underline transition-colors flex items-center gap-0.5 text-xs font-mono font-bold uppercase"
                         >
                           <span>LINK</span>
