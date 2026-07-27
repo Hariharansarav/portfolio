@@ -4,25 +4,47 @@ import { Mail, Globe, Send, CheckCircle2 } from 'lucide-react';
 const Contact = () => {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formState.name || !formState.email || !formState.message) return;
 
-    // Prefill mailto subject and body properties
-    const subject = encodeURIComponent(`Portfolio Message from ${formState.name}`);
-    const body = encodeURIComponent(
-      `Hi Hariharan,\n\nYou received a new message from your portfolio contact form:\n\nSender: ${formState.name}\nEmail: ${formState.email}\n\nMessage:\n${formState.message}\n\nBest regards,\n${formState.name}`
-    );
+    setIsSending(true);
+    setErrorMessage('');
 
-    // Redirect to default mail client prefilled
-    window.location.href = `mailto:hariharansarav7@gmail.com?subject=${subject}&body=${body}`;
-
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormState({ name: '', email: '', message: '' });
-    }, 4000);
+    fetch("https://formsubmit.co/ajax/hariharansarav7@gmail.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        name: formState.name,
+        email: formState.email,
+        message: formState.message,
+        _subject: `Portfolio Message from ${formState.name}`
+      })
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then((data) => {
+        console.log('SUCCESS!', data);
+        setSubmitted(true);
+        setFormState({ name: '', email: '', message: '' });
+      })
+      .catch((err) => {
+        console.error('FAILED...', err);
+        setErrorMessage('Failed to send message directly. Please try again or email hariharansarav7@gmail.com.');
+      })
+      .finally(() => {
+        setIsSending(false);
+      });
   };
 
   const handleInputChange = (e) => {
@@ -133,13 +155,20 @@ const Contact = () => {
                   />
                 </div>
 
+                {errorMessage && (
+                  <div className="text-red-500 font-mono text-xs font-black uppercase mt-2">
+                    {errorMessage}
+                  </div>
+                )}
+
                 {/* Send Button */}
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="px-5 py-3 bg-cv-yellow text-black border-brutalist shadow-brutalist-sm text-xs font-mono font-black uppercase hover:bg-slate-50 hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer inline-flex items-center gap-2"
+                    disabled={isSending}
+                    className="px-5 py-3 bg-cv-yellow text-black border-brutalist shadow-brutalist-sm text-xs font-mono font-black uppercase hover:bg-slate-50 hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <span>Mails Postcard</span>
+                    <span>{isSending ? 'Sending...' : 'Mails Postcard'}</span>
                     <Send className="w-3.5 h-3.5" />
                   </button>
                 </div>
