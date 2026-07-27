@@ -11,10 +11,10 @@ const Experience = () => {
       company: 'KG Agile',
       companyColor: 'text-cv-pink bg-cv-pink/10 border-cv-pink/20',
       location: 'Coimbatore',
-      period: 'Feb 2026 – Present',
-      duration: 'Ongoing',
-      status: 'Current Role',
-      isCurrent: true,
+      period: 'Feb 2026 – April 2026',
+      duration: '3 Months',
+      status: 'Completed',
+      isCurrent: false,
       color: 'bg-cv-pink',
       description:
         'Engaged in full-stack web application engineering utilizing Next.js, React, Express.js, and MongoDB. Responsible for frontend components, backend REST API design, and UI performance optimizations.',
@@ -104,7 +104,7 @@ const Experience = () => {
       <div className="absolute top-0 right-0 w-32 h-full opacity-[0.02] bg-[repeating-linear-gradient(45deg,#000,#000_10px,transparent_10px,transparent_20px)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        
+
         {/* Section Title */}
         <div className="text-center space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-cv-yellow text-black border-brutalist shadow-brutalist-sm text-xs font-mono font-bold uppercase tracking-wider">
@@ -121,7 +121,7 @@ const Experience = () => {
 
         {/* TWO-PANEL INTERACTIVE GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
+
           {/* LEFT PANEL: OVERVIEW & GENERAL STATS CARD (5 Cols) */}
           <div className="col-span-1 lg:col-span-5 bg-white border-brutalist shadow-brutalist-lg rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative hover:rotate-[-0.3deg] transition-transform duration-300 text-left">
             {/* Grid Pattern backdrop */}
@@ -139,7 +139,7 @@ const Experience = () => {
                   <h3 className="text-4xl sm:text-5xl font-black font-display text-black uppercase leading-none">
                     INTERNSHIP<span className="text-cv-pink font-black">.</span>
                   </h3>
-                  
+
                   <div className="bg-cv-pink text-black border-brutalist shadow-brutalist px-4 py-2 inline-block rotate-[-1deg]">
                     <span className="text-xs sm:text-sm font-black font-mono uppercase tracking-wide">
                       EXPERIENCE & IMPACT.
@@ -190,7 +190,7 @@ const Experience = () => {
 
           {/* RIGHT PANEL: INTERACTIVE TIMELINE + DETAIL CARD (7 Cols) */}
           <div className="col-span-1 lg:col-span-7 bg-white border-brutalist shadow-brutalist-lg rounded-2xl p-6 sm:p-8 relative flex flex-col justify-between overflow-hidden hover:rotate-[0.3deg] transition-transform duration-300 text-left">
-            
+
             {/* Top Header Badge */}
             <div className="flex items-center justify-between border-b-2 border-black pb-4 mb-6">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cv-green text-black border-brutalist shadow-brutalist-sm text-[9px] font-mono font-bold uppercase tracking-wider rounded">
@@ -201,7 +201,7 @@ const Experience = () => {
 
             {/* Split Screen View inside Right Card */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch flex-1">
-              
+
               {/* Left Column of Right Panel: Timeline Navigation List */}
               <div className="md:col-span-5 relative pl-6 flex flex-col gap-4">
                 {/* Timeline vertical dashed line */}
@@ -213,11 +213,10 @@ const Experience = () => {
                     <div
                       key={exp.id}
                       onClick={() => setActiveIdx(idx)}
-                      className={`group relative flex items-center p-3 border-brutalist-thin rounded transition-all duration-150 cursor-pointer select-none bg-white ${
-                        isSelected 
-                          ? 'border-black bg-cv-yellow/10 shadow-brutalist-sm translate-x-[-1px] translate-y-[-1px]' 
-                          : 'border-black/20 hover:border-black/50 hover:bg-slate-50'
-                      }`}
+                      className={`group relative flex items-center p-3 border-brutalist-thin rounded transition-all duration-150 cursor-pointer select-none bg-white ${isSelected
+                        ? 'border-black bg-cv-yellow/10 shadow-brutalist-sm translate-x-[-1px] translate-y-[-1px]'
+                        : 'border-black/20 hover:border-black/50 hover:bg-slate-50'
+                        }`}
                     >
                       {/* Timeline node square */}
                       <div className={`absolute left-[-29px] top-1/2 -translate-y-1/2 w-6 h-6 border-brutalist-thin flex items-center justify-center font-mono font-black text-xs text-black shadow-brutalist-sm ${exp.color} z-10 ${isSelected ? 'scale-105' : ''}`}>
@@ -248,7 +247,7 @@ const Experience = () => {
               {/* Right Column of Right Panel: Active Details Panel (Selected card details shown here!) */}
               <div className="md:col-span-7 flex flex-col">
                 <div className="bg-slate-50 border-brutalist shadow-brutalist-sm p-5 rounded-xl h-full flex flex-col justify-between relative group hover:bg-white transition-colors duration-150 min-h-[300px]">
-                  
+
                   {/* Visual sticker indicator */}
                   <div className="absolute top-3 right-3 opacity-15 pointer-events-none select-none text-black">
                     <Briefcase className="w-8 h-8" />
@@ -303,13 +302,13 @@ const Experience = () => {
 
             {/* Connect Action Footer */}
             <div className="flex items-center gap-3 pt-6 border-t-2 border-black mt-8">
-              <button 
+              <button
                 onClick={scrollToContact}
                 className="flex-1 py-2.5 bg-cv-pink text-black border-brutalist shadow-brutalist-sm text-[9.5px] font-mono font-black text-center uppercase tracking-wider hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
               >
                 OPEN FOR OPPORTUNITIES
               </button>
-              <button 
+              <button
                 onClick={scrollToContact}
                 className="flex-1 py-2.5 bg-cv-cyan text-black border-brutalist shadow-brutalist-sm text-[9.5px] font-mono font-black text-center uppercase tracking-wider hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
               >

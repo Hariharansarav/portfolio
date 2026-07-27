@@ -78,7 +78,7 @@ const Footer = () => {
             <h4 className="text-xs font-black text-black uppercase tracking-wider mb-4 border-l-3 border-black pl-3 font-mono">
               Quick Navigation
             </h4>
-            <ul className="space-y-2.5 text-xs font-mono">
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs font-mono">
               {['Home', 'About', 'Experience', 'Projects', 'Education', 'Contact'].map((section) => (
                 <li key={section}>
                   <button
@@ -89,15 +89,6 @@ const Footer = () => {
                   </button>
                 </li>
               ))}
-              <li>
-                <Link
-                  to="/resume"
-                  className="text-cv-pink font-black hover:underline transition-colors flex items-center gap-1.5 cursor-pointer pt-1 uppercase"
-                >
-                  <FileText className="w-3.5 h-3.5 stroke-[3px]" />
-                  <span>Resume Page</span>
-                </Link>
-              </li>
             </ul>
           </div>
 

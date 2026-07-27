@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './Components/Header';
 import Hero from './Components/Hero';
@@ -11,10 +11,14 @@ import Footer from './Components/Footer';
 import ResumePage from './Pages/ResumePage';
 import CustomCursor from './Components/CustomCursor';
 import SkillsBorder from './Components/SkillsBorder';
+import LoadingScreen from './Components/LoadingScreen';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <div className="bg-cv-bg text-black min-h-screen selection:bg-black selection:text-cv-yellow relative">
+      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
       <CustomCursor />
       <Routes>
         <Route
