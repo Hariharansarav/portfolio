@@ -106,6 +106,19 @@ const ResumePage = () => {
       ],
     },
     {
+      title: 'CampusRoute Tracking System',
+      date: 'Ongoing',
+      award: 'UI/UX & Developer Role 🎨',
+      tech: 'React Native, React.js, Node.js, Socket.io, Redis, MySQL',
+      liveLink: null,
+      highlights: [
+        'Designing and developing a full-stack real-time campus bus tracking and transport management platform.',
+        'Led the UI/UX design phase, creating user flows, wireframes, and design components in Figma for Students, Drivers, and Admins.',
+        'Implementing live GPS location tracking on Google Maps with Socket.io, caching locations in Redis.',
+        'Building dedicated features for Student notifications, Driver breakdowns, Admin panels, and Manager optimization workflows.',
+      ],
+    },
+    {
       title: 'Audit Management System',
       date: 'Oct 2025',
       award: null,
@@ -242,7 +255,7 @@ const ResumePage = () => {
           {[
             { label: 'All Sections', id: 'all' },
             { label: 'Experience (4)', id: 'experience' },
-            { label: 'Projects & Awards (5)', id: 'projects' },
+            { label: 'Projects & Awards (6)', id: 'projects' },
             { label: 'Technical Skills', id: 'skills' },
             { label: 'Education', id: 'education' },
           ].map((tab) => (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, FileText, Sparkles, Sun, Moon } from 'lucide-react';
+import { Menu, X, FileText, Sparkles } from 'lucide-react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,28 +9,11 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Initialize theme from localStorage, default to light mode
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') || 'light';
-    }
-    return 'light';
-  });
-
-  // Apply theme class to document tag dynamically
+  // Ensure dark mode is cleaned up
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
+    document.documentElement.classList.remove('dark');
+    localStorage.removeItem('theme');
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -142,17 +125,6 @@ const Header = () => {
 
           {/* RIGHT ACTION BUTTONS */}
           <div className="hidden md:flex items-center gap-4">
-            
-            {/* Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="w-8 h-8 rounded border-2 border-black flex items-center justify-center shadow-brutalist-sm hover:translate-x-[-1px] hover:translate-y-[-1px] hover:bg-slate-50 transition-all cursor-pointer bg-white text-black"
-              aria-label="Toggle Theme"
-              title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-            >
-              {theme === 'light' ? <Moon className="w-4.5 h-4.5 text-black" /> : <Sun className="w-4.5 h-4.5 text-black" />}
-            </button>
-
             <Link
               to="/resume"
               className="flex items-center gap-2 bg-cv-green text-black btn-brutalist px-4 py-2 text-xs cursor-pointer shadow-brutalist-sm hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
@@ -164,16 +136,6 @@ const Header = () => {
 
           {/* MOBILE TOGGLE & THEME BTN */}
           <div className="flex lg:hidden items-center gap-2">
-            
-            {/* Mobile Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="w-8 h-8 rounded border-2 border-black flex items-center justify-center shadow-brutalist-sm hover:translate-x-[-1px] hover:translate-y-[-1px] hover:bg-slate-50 transition-all cursor-pointer bg-white text-black"
-              aria-label="Toggle Theme"
-            >
-              {theme === 'light' ? <Moon className="w-4.5 h-4.5 text-black" /> : <Sun className="w-4.5 h-4.5 text-black" />}
-            </button>
-
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-black hover:bg-cv-yellow bg-white border-brutalist-thin rounded-lg focus:outline-none shadow-brutalist-sm transition-colors"

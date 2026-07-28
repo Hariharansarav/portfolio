@@ -3,8 +3,6 @@
 /* Import modern premium fonts */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Share+Tech+Mono&display=swap');
 
-@variant dark (&:where(.dark, .dark *));
-
 @theme {
   /* Set fonts */
   --font-display: 'Outfit', sans-serif;
@@ -37,13 +35,6 @@
     --theme-text: #000000;
   }
 
-  html.dark {
-    --theme-bg: #0F1217;
-    --theme-card-bg: #161A22;
-    --theme-card-sub-bg: #212630;
-    --theme-text: #FFFFFF;
-  }
-
   html {
     scroll-behavior: smooth;
     font-family: var(--font-body);
@@ -62,66 +53,6 @@
   ::selection {
     background-color: #000000;
     color: var(--color-cv-yellow);
-  }
-
-  /* Force dark overrides globally to maintain brutalist consistency */
-  html.dark body {
-    background-color: var(--theme-bg) !important;
-    color: var(--theme-text) !important;
-  }
-
-  html.dark #about,
-  html.dark #skills,
-  html.dark #experience,
-  html.dark #projects,
-  html.dark #education,
-  html.dark #contact,
-  html.dark footer {
-    background-color: var(--theme-bg) !important;
-    color: var(--theme-text) !important;
-  }
-
-  html.dark .bg-cv-bg {
-    background-color: var(--theme-bg) !important;
-  }
-
-  html.dark .bg-white {
-    background-color: var(--theme-card-bg) !important;
-    color: var(--theme-text) !important;
-  }
-
-  html.dark .bg-slate-50 {
-    background-color: var(--theme-card-sub-bg) !important;
-    color: var(--theme-text) !important;
-  }
-
-  html.dark .postcard-container {
-    background-color: var(--theme-card-bg) !important;
-    color: var(--theme-text) !important;
-  }
-
-  html.dark .text-black {
-    color: var(--theme-text) !important;
-  }
-
-  html.dark .text-slate-700 {
-    color: #94a3b8 !important;
-  }
-
-  html.dark .text-slate-800 {
-    color: #cbd5e1 !important;
-  }
-
-  html.dark .text-slate-500 {
-    color: #64748b !important;
-  }
-
-  html.dark .border-black {
-    border-color: #000000 !important;
-  }
-
-  html.dark .border-slate-350 {
-    border-color: #334155 !important;
   }
 }
 
@@ -209,28 +140,6 @@
     transparent 22px
   );
   background-size: 32px 100%;
-}
-
-html.dark .barcode-stripes {
-  background-image: repeating-linear-gradient(
-    90deg,
-    #ffffff,
-    #ffffff 2px,
-    transparent 2px,
-    transparent 5px,
-    #ffffff 5px,
-    #ffffff 7px,
-    transparent 7px,
-    transparent 11px,
-    #ffffff 11px,
-    #ffffff 12px,
-    transparent 12px,
-    transparent 16px,
-    #ffffff 16px,
-    #ffffff 20px,
-    transparent 20px,
-    transparent 22px
-  ) !important;
 }
 
 /* Postage Stamp Border Effect */
@@ -404,11 +313,6 @@ html.dark .barcode-stripes {
                     linear-gradient(to bottom, rgba(34, 211, 238, 0.1) 1px, transparent 1px);
 }
 
-html.dark .bg-grid-cyber {
-  background-image: linear-gradient(to right, rgba(244, 114, 182, 0.1) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(244, 114, 182, 0.1) 1px, transparent 1px) !important;
-}
-
 /* Scan-line background noise */
 .bg-scan-noise {
   background: linear-gradient(
@@ -423,19 +327,6 @@ html.dark .bg-grid-cyber {
   background-size: 100% 4px, 6px 100%;
 }
 
-html.dark .bg-scan-noise {
-  background: linear-gradient(
-    rgba(255, 255, 255, 0.05) 50%, 
-    rgba(0, 0, 0, 0.25) 50%
-  ), linear-gradient(
-    90deg, 
-    rgba(255, 0, 0, 0.06), 
-    rgba(0, 255, 0, 0.03), 
-    rgba(0, 0, 255, 0.06)
-  ) !important;
-  background-size: 100% 4px, 6px 100% !important;
-}
-
 /* Custom Interactive Cursor Styling */
 @media (min-width: 768px) {
   html, body, a, button, select, input, textarea, [role="button"], .cursor-pointer {
@@ -443,42 +334,150 @@ html.dark .bg-scan-noise {
   }
 }
 
-.custom-cursor-dot {
-  width: 8px;
-  height: 8px;
+/* Hide default pointer on screens that support custom pointer */
+@media (min-width: 768px) {
+  html, body, a, button, select, input, textarea, [role="button"], .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
+.custom-reticle-pointer {
+  position: fixed;
+  width: 6px;
+  height: 6px;
   background-color: #000000;
-  border-radius: 0px;
-  position: fixed;
-  transform: translate(-50%, -50%);
+  border: 1px solid #ffffff;
+  border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
-  transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
-}
-
-html.dark .custom-cursor-dot {
-  background-color: #ffffff !important;
-}
-
-.custom-cursor-ring {
-  width: 24px;
-  height: 24px;
-  border: 2.5px solid #000000;
-  border-radius: 0px;
-  position: fixed;
+  z-index: 999999;
   transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 9998;
-  transition: width 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-              height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-              border-color 0.2s ease, 
-              background-color 0.2s ease, 
-              transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 2.5px 2.5px 0px 0px #000000;
+  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
 
-html.dark .custom-cursor-ring {
-  border-color: #ffffff !important;
-  box-shadow: 2.5px 2.5px 0px 0px #ffffff !important;
+.custom-reticle-pointer.context-design {
+  background-color: #C8FF3D;
+  border-color: #000000;
+}
+
+.custom-reticle-pointer.context-dev {
+  background-color: #FF4FA3;
+  border-color: #000000;
+}
+
+.custom-reticle-pointer.context-input {
+  opacity: 0;
+}
+
+.custom-reticle-follower {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999998;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 22px;
+  background-color: #ffffff;
+  border: 1.5px solid #000000;
+  box-shadow: 2px 2px 0px 0px #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              height 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              border-radius 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              background-color 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.custom-reticle-follower .reticle-text {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 800;
+  color: #000000;
+  white-space: nowrap;
+  text-transform: uppercase;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Design Hover: Green drafting circle */
+.custom-reticle-follower.context-design {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-color: #C8FF3D;
+  background-color: #0c0f17;
+  box-shadow: 2px 2px 0px 0px #C8FF3D;
+}
+.custom-reticle-follower.context-design .reticle-text {
+  color: #C8FF3D;
+}
+
+/* Dev Hover: Pink code circle */
+.custom-reticle-follower.context-dev {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-color: #FF4FA3;
+  background-color: #0c0f17;
+  box-shadow: 2px 2px 0px 0px #FF4FA3;
+}
+.custom-reticle-follower.context-dev .reticle-text {
+  color: #FF4FA3;
+}
+
+/* Input Hover: Cyan select slot caret */
+.custom-reticle-follower.context-input {
+  width: 6px;
+  height: 28px;
+  border-radius: 2px;
+  border-color: #22D3EE;
+  background-color: #000000;
+  box-shadow: none;
+}
+.custom-reticle-follower.context-input .reticle-text {
+  opacity: 0;
+}
+
+/* General Hover: Yellow click pill */
+.custom-reticle-follower.context-general {
+  width: 48px;
+  height: 20px;
+  border-radius: 9999px;
+  border-color: #FFDE4D;
+  background-color: #ffffff;
+  box-shadow: 2px 2px 0px 0px #FFDE4D;
+}
+.custom-reticle-follower.context-general .reticle-text {
+  color: #000000;
+}
+
+
+
+/* Animations */
+@keyframes hud-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hud-reverse-spin {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes badge-slide-out {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* Rotating Marquee Border Animations */

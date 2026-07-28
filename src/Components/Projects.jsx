@@ -14,6 +14,28 @@ const Projects = () => {
   const projectsData = [
     {
       id: 1,
+      title: 'CampusRoute',
+      category: 'Fullstack',
+      role: 'UI/UX Designer & Lead Developer',
+      date: 'Ongoing',
+      domain: 'campusroute.track',
+      tags: ['React Native', 'React.js', 'Node.js', 'Socket.IO', 'Redis', 'MySQL', 'Figma'],
+      icon: null,
+      color: 'bg-cv-yellow',
+      code: 'CR-01',
+      description:
+        'Designing and developing a full-stack real-time campus bus tracking and transport management platform to address inaccurate bus timings and lack of tracking. Built wireframes and user flows in Figma for Students, Drivers, Administrators, and Managers. Implementing live GPS tracking using Socket.IO, Google Maps API, and location services with location caching in Redis and storage in MySQL.',
+      features: [
+        'Designed complete user experience flows and responsive UI components in Figma for Students, Drivers, Admins, and Managers.',
+        'Developed live bus tracking with real-time ETA predictions on Google Maps.',
+        'Implemented driver GPS sharing, breakdown reporting, and emergency alert systems.',
+        'Built administrative controls for route management, driver performance reports, and trip logs.',
+        'Optimized data exchange using Redis cache for location pub/sub and Socket.IO for push updates.',
+      ],
+      liveLink: null,
+    },
+    {
+      id: 2,
       title: 'Audit Management System',
       category: 'Fullstack',
       role: 'Backend & DB Developer',
@@ -21,8 +43,8 @@ const Projects = () => {
       domain: 'llsamsystem.netlify.app',
       tags: ['React.js', 'Node.js', 'Express.js', 'MSSQL'],
       icon: sqlServerIcon,
-      color: 'bg-cv-yellow',
-      code: 'AM-01',
+      color: 'bg-cv-pink',
+      code: 'AM-02',
       description:
         'Developed a full-stack Audit Management System with REST API integration and MSSQL database connectivity. Implemented CRUD functionalities for managing audits, observations, and workflow operations. Designed responsive workflow-based user interfaces and optimized backend integration for improved application performance.',
       features: [
@@ -33,7 +55,7 @@ const Projects = () => {
       liveLink: 'https://llsamsystem.netlify.app/',
     },
     {
-      id: 2,
+      id: 3,
       title: 'Students Choice Global',
       category: 'Fullstack',
       role: 'Full Stack Intern',
@@ -41,8 +63,8 @@ const Projects = () => {
       domain: 'studentschoiceglobal.com',
       tags: ['Next.js', 'Node.js', 'Express.js', 'React.js'],
       icon: reactIcon,
-      color: 'bg-cv-pink',
-      code: 'SC-02',
+      color: 'bg-cv-cyan',
+      code: 'SC-03',
       description:
         'Worked on full-stack web application development as part of a collaborative team during the KG Agile internship. Developed and maintained responsive web pages using Next.js with frontend and backend integration and REST API connectivity. Contributed to dynamic data handling and feature development across multiple application modules.',
       features: [
@@ -53,7 +75,7 @@ const Projects = () => {
       liveLink: 'https://www.studentschoiceglobal.com/',
     },
     {
-      id: 3,
+      id: 4,
       title: 'V Do Naturals Integration',
       category: 'Fullstack',
       role: 'API & UI Developer',
@@ -61,8 +83,8 @@ const Projects = () => {
       domain: 'vdonaturalss.com',
       tags: ['Node.js', 'Express.js', 'JavaScript', 'E-Commerce'],
       icon: reactIcon,
-      color: 'bg-cv-cyan',
-      code: 'VD-03',
+      color: 'bg-cv-purple',
+      code: 'VD-04',
       description:
         'Worked on admin panel development and backend API integration for an e-commerce web application. Handled frontend-backend connectivity and dynamic data integration for website operations. Contributed during the UI/UX design phase by framing and organizing content for product pages and website sections.',
       features: [
@@ -73,7 +95,7 @@ const Projects = () => {
       liveLink: 'https://vdonaturalss.com/',
     },
     {
-      id: 4,
+      id: 5,
       title: 'Green Wheels Website',
       category: 'UI/UX',
       role: 'Frontend Developer',
@@ -81,8 +103,8 @@ const Projects = () => {
       domain: 'greenwheelscs.in',
       tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsive UI'],
       icon: null,
-      color: 'bg-cv-purple',
-      code: 'GW-04',
+      color: 'bg-cv-green',
+      code: 'GW-05',
       description:
         'Developed a responsive business website with structured navigation and user-friendly interface design. Worked on frontend development and responsive layouts for better accessibility across devices. Improved overall website presentation and user experience.',
       features: [
@@ -93,17 +115,17 @@ const Projects = () => {
       liveLink: 'https://www.greenwheelscs.in/',
     },
     {
-      id: 5,
+      id: 6,
       title: 'Smart Tribal Farming',
       category: 'Web Apps',
       role: 'AI & Full Stack Dev',
-      date: 'Ongoing',
+      date: 'Sept 2025',
       domain: 'smart-tribal-farming.onrender.com',
       award: 'Best Paper Award ✦',
       tags: ['React.js', 'AI/ML', 'Data Analysis', 'Python'],
       icon: dataScienceIcon,
-      color: 'bg-cv-green',
-      code: 'SF-05',
+      color: 'bg-cv-yellow',
+      code: 'SF-06',
       description:
         'Developing an AI-powered crop suitability and planning system for tribal farmers. Completed frontend development with responsive UI design. Working on AI model integration for crop prediction and farming recommendations. Collaborating with team members on data-driven agricultural solutions. Received the Best Paper Award for innovative application of AI in agriculture.',
       features: [
@@ -138,10 +160,10 @@ const Projects = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full space-y-8">
-        
+
         {/* TOP PANEL ROW: OVERVIEW & STATS (divided into two cards) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
+
           {/* Card A: Overview (7 Cols) */}
           <div className="col-span-1 lg:col-span-7 bg-white border-brutalist shadow-brutalist rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative text-left group hover:rotate-[-0.3deg] transition-all duration-300">
             {/* Visual background lines */}
@@ -189,7 +211,7 @@ const Projects = () => {
 
           {/* Card B: Stats & Filters (5 Cols) - REDESIGNED WITH LEDS AND STACKS */}
           <div className="col-span-1 lg:col-span-5 bg-white border-brutalist shadow-brutalist rounded-2xl p-6 flex flex-col justify-between gap-6 text-left relative overflow-hidden group hover:rotate-[0.3deg] transition-all duration-300">
-            
+
             {/* Header info */}
             <div className="flex justify-between items-center border-b border-black/10 pb-2.5">
               <span className="font-mono text-[8px] font-black uppercase text-slate-500 tracking-wider">✦ METRICS & CHANNELS RACK</span>
@@ -199,17 +221,17 @@ const Projects = () => {
             {/* 4 Stats Grid with LED status indicators */}
             <div className="grid grid-cols-4 gap-2">
               <div className="border border-dashed border-black p-2.5 rounded text-center bg-white shadow-sm relative hover:scale-102 transition-transform">
-                <p className="text-base sm:text-lg font-black font-display text-cv-green leading-none">05+</p>
+                <p className="text-base sm:text-lg font-black font-display text-cv-green leading-none">06</p>
                 <p className="text-[7.5px] font-mono font-black uppercase text-slate-700 leading-tight mt-1.5">PROJECTS</p>
                 <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-cv-green border border-black/35 shadow-[0_0_4px_#A3E635]" />
               </div>
               <div className="border border-dashed border-black p-2.5 rounded text-center bg-white shadow-sm relative hover:scale-102 transition-transform">
-                <p className="text-base sm:text-lg font-black font-display text-cv-pink leading-none">03</p>
+                <p className="text-base sm:text-lg font-black font-display text-cv-pink leading-none">04</p>
                 <p className="text-[7.5px] font-mono font-black uppercase text-slate-700 leading-tight mt-1.5">FULLSTACK</p>
                 <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-cv-pink border border-black/35 shadow-[0_0_4px_#F472B6]" />
               </div>
               <div className="border border-dashed border-black p-2.5 rounded text-center bg-white shadow-sm relative hover:scale-102 transition-transform">
-                <p className="text-base sm:text-lg font-black font-display text-cv-cyan leading-none">02</p>
+                <p className="text-base sm:text-lg font-black font-display text-cv-cyan leading-none">01</p>
                 <p className="text-[7.5px] font-mono font-black uppercase text-slate-700 leading-tight mt-1.5">UI/UX</p>
                 <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-cv-cyan border border-black/35 shadow-[0_0_4px_#22D3EE]" />
               </div>
@@ -227,11 +249,10 @@ const Projects = () => {
                   <button
                     key={f}
                     onClick={() => setActiveFilter(f)}
-                    className={`px-3.5 py-1.5 border-2 border-black rounded-lg font-mono text-[9.5px] font-black uppercase transition-all duration-100 cursor-pointer ${
-                      activeFilter === f
+                    className={`px-3.5 py-1.5 border-2 border-black rounded-lg font-mono text-[9.5px] font-black uppercase transition-all duration-100 cursor-pointer ${activeFilter === f
                         ? 'bg-black text-white shadow-brutalist-sm translate-x-[-1px] translate-y-[-1px]'
                         : 'bg-white text-black hover:bg-slate-50 hover:shadow-brutalist-sm'
-                    }`}
+                      }`}
                   >
                     {f}
                   </button>
@@ -248,12 +269,13 @@ const Projects = () => {
           {filteredProjects.map((project) => (
             <div
               key={project.id}
+              data-cursor="project"
               className="bg-white border-brutalist shadow-brutalist rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0 relative hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutalist-lg transition-all duration-200 group text-left w-full"
             >
-              
+
               {/* Left Ticket Main Body (8 Cols) */}
               <div className="col-span-1 lg:col-span-8 p-6 flex flex-col justify-between space-y-4">
-                
+
                 {/* Header Ticket Row */}
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
@@ -273,7 +295,7 @@ const Projects = () => {
 
                 {/* Project Title Block */}
                 <div className="space-y-2">
-                  
+
                   {project.award && (
                     <div className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-cv-pink border border-black/25 text-[8.5px] font-mono font-black uppercase tracking-wider rounded shadow-brutalist-sm">
                       <Award className="w-3 h-3 text-black" />
@@ -285,7 +307,7 @@ const Projects = () => {
                     <Bookmark className="w-5 h-5 text-cv-pink flex-shrink-0" />
                     <span>{project.title}</span>
                   </h3>
-                  
+
                   <p className="text-xs sm:text-sm text-black font-semibold font-body leading-relaxed max-w-4xl">
                     {project.description}
                   </p>
@@ -295,7 +317,7 @@ const Projects = () => {
                 <div className="flex flex-wrap gap-1.5 pt-2">
                   <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-slate-450 self-center mr-1">STACK:</span>
                   {project.tags.map((t, idx) => (
-                    <span 
+                    <span
                       key={idx}
                       className="px-2.5 py-0.5 bg-slate-50 border border-black/15 text-[8.5px] font-mono font-black uppercase rounded text-slate-800"
                     >
@@ -322,7 +344,7 @@ const Projects = () => {
 
               {/* Right Ticket Coupon Stub (3 Cols) */}
               <div className="col-span-1 lg:col-span-3 bg-slate-50 p-6 flex flex-col justify-between items-center text-center space-y-4 lg:space-y-0 h-full self-center">
-                
+
                 {/* Visual Barcode Stamp */}
                 <div className="space-y-1.5 w-full flex flex-col items-center">
                   <div className="w-3/4 h-8 barcode-stripes border border-black rounded shadow-brutalist-sm" />
@@ -348,7 +370,7 @@ const Projects = () => {
                     <span>VIEW LIVE</span>
                     <ExternalLink className="w-3 h-3 text-black" />
                   </a>
-                  
+
                   <button
                     onClick={() => setSelectedProject(project)}
                     className="w-full py-2 bg-white text-black border-brutalist-thin shadow-brutalist-sm text-[9.5px] font-mono font-black uppercase hover:bg-slate-50 cursor-pointer"
@@ -365,13 +387,13 @@ const Projects = () => {
 
         {/* Bottom CTA Banner */}
         <div className="flex items-center justify-center gap-3 pt-8">
-          <button 
+          <button
             onClick={scrollToContact}
             className="px-5 py-3 bg-cv-pink text-black border-brutalist shadow-brutalist-sm text-xs font-mono font-black text-center uppercase tracking-wider hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
           >
             INTERESTED IN COLLABORATING?
           </button>
-          <button 
+          <button
             onClick={scrollToContact}
             className="px-5 py-3 bg-white text-black border-brutalist shadow-brutalist-sm text-xs font-mono font-black text-center uppercase tracking-wider hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
           >
