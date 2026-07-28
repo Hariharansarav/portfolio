@@ -32,7 +32,7 @@ const Projects = () => {
         'Built administrative controls for route management, driver performance reports, and trip logs.',
         'Optimized data exchange using Redis cache for location pub/sub and Socket.IO for push updates.',
       ],
-      liveLink: null,
+      liveLink: 'https://campus-routefinal.vercel.app/',
     },
     {
       id: 2,
@@ -250,8 +250,8 @@ const Projects = () => {
                     key={f}
                     onClick={() => setActiveFilter(f)}
                     className={`px-3.5 py-1.5 border-2 border-black rounded-lg font-mono text-[9.5px] font-black uppercase transition-all duration-100 cursor-pointer ${activeFilter === f
-                        ? 'bg-black text-white shadow-brutalist-sm translate-x-[-1px] translate-y-[-1px]'
-                        : 'bg-white text-black hover:bg-slate-50 hover:shadow-brutalist-sm'
+                      ? 'bg-black text-white shadow-brutalist-sm translate-x-[-1px] translate-y-[-1px]'
+                      : 'bg-white text-black hover:bg-slate-50 hover:shadow-brutalist-sm'
                       }`}
                   >
                     {f}

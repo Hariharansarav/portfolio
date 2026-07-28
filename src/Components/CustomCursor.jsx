@@ -4,11 +4,12 @@ const CustomCursor = () => {
   const [hoverContext, setHoverContext] = useState(null); // 'design' | 'dev' | 'general' | 'input' | null
   const [hidden, setHidden] = useState(true);
   const [isMobile, setIsMobile] = useState(true);
+  const [isClicking, setIsClicking] = useState(false);
+  const [clicks, setClicks] = useState([]);
 
   // Refs for high-performance direct style and text manipulation
   const pointerRef = useRef(null);
   const followerRef = useRef(null);
-  const coordsRef = useRef(null);
 
   // Position coordinates
   const mousePos = useRef({ x: 0, y: 0 });
@@ -32,6 +33,27 @@ const CustomCursor = () => {
 
     const handleMouseLeave = () => setHidden(true);
     const handleMouseEnter = () => setHidden(false);
+
+    const handleMouseDown = (e) => {
+      if (e.button !== 0) return; // Only trigger for left-click
+      setIsClicking(true);
+      
+      const newClick = {
+        id: Date.now() + Math.random(),
+        x: e.clientX,
+        y: e.clientY
+      };
+      
+      setClicks((prev) => [...prev, newClick]);
+      
+      setTimeout(() => {
+        setClicks((prev) => prev.filter(c => c.id !== newClick.id));
+      }, 500);
+    };
+
+    const handleMouseUp = () => {
+      setIsClicking(false);
+    };
 
     // Event delegation to detect hover states and contextual keywords dynamically
     const handleMouseOver = (e) => {
@@ -86,6 +108,8 @@ const CustomCursor = () => {
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
     window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
 
     // Smooth physics LERP loop
     const updateCursor = () => {
@@ -105,21 +129,6 @@ const CustomCursor = () => {
         followerRef.current.style.top = `${followerPos.current.y}px`;
       }
 
-      // 3. Update coordinates/label text directly to avoid React state triggers
-      if (coordsRef.current) {
-        if (hoverContext === 'design') {
-          coordsRef.current.textContent = 'DESIGN';
-        } else if (hoverContext === 'dev') {
-          coordsRef.current.textContent = 'CODE';
-        } else if (hoverContext === 'general') {
-          coordsRef.current.textContent = 'TAP';
-        } else if (hoverContext === 'input') {
-          coordsRef.current.textContent = '';
-        } else {
-          coordsRef.current.textContent = `${Math.round(mousePos.current.x)},${Math.round(mousePos.current.y)}`;
-        }
-      }
-
       animationFrameId.current = requestAnimationFrame(updateCursor);
     };
 
@@ -131,6 +140,8 @@ const CustomCursor = () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
       document.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
@@ -144,16 +155,23 @@ const CustomCursor = () => {
       {/* 1. Snappy Pointer Core Dot */}
       <div 
         ref={pointerRef} 
-        className={`custom-reticle-pointer ${hoverContext ? `context-${hoverContext}` : ''}`} 
+        className={`custom-reticle-pointer ${hoverContext ? `context-${hoverContext}` : ''} ${isClicking ? 'is-clicking' : ''}`} 
       />
 
       {/* 2. Lagging Follower Frame */}
       <div
         ref={followerRef}
-        className={`custom-reticle-follower ${hoverContext ? `context-${hoverContext}` : ''}`}
-      >
-        <span ref={coordsRef} className="reticle-text" />
-      </div>
+        className={`custom-reticle-follower ${hoverContext ? `context-${hoverContext}` : ''} ${isClicking ? 'is-clicking' : ''}`}
+      />
+
+      {/* 3. Click Ripples */}
+      {clicks.map((click) => (
+        <div
+          key={click.id}
+          className="custom-cursor-ripple"
+          style={{ left: `${click.x}px`, top: `${click.y}px` }}
+        />
+      ))}
     </>
   );
 };

@@ -64,18 +64,18 @@ const LoadingScreen = ({ onComplete }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[99999] flex items-center justify-center bg-[#DBE2E9] dark:bg-[#0F1217] transition-all duration-500 ease-in-out ${
+      className={`fixed inset-0 z-[99999] flex items-center justify-center bg-[#DBE2E9] transition-all duration-500 ease-in-out ${
         isFadingOut ? 'translate-y-[-100%] opacity-0' : 'translate-y-0 opacity-100'
       }`}
     >
       {/* Brutalist diagonal background pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[repeating-linear-gradient(45deg,#000,#000_15px,transparent_15px,transparent_30px)] pointer-events-none dark:opacity-[0.05] dark:bg-[repeating-linear-gradient(45deg,#fff,#fff_15px,transparent_15px,transparent_30px)]" />
+      <div className="absolute inset-0 opacity-[0.03] bg-[repeating-linear-gradient(45deg,#000,#000_15px,transparent_15px,transparent_30px)] pointer-events-none" />
 
       {/* Main retro window card */}
-      <div className="w-[90%] max-w-md bg-white dark:bg-[#161A22] border-4 border-black text-black dark:text-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] rounded-none overflow-hidden transition-colors duration-300">
+      <div className="w-[90%] max-w-md bg-white border-4 border-black text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-none overflow-hidden transition-colors duration-300">
         
         {/* Retro Header Bar */}
-        <div className="bg-black dark:bg-zinc-800 text-white px-3 py-2 flex items-center justify-between border-b-4 border-black">
+        <div className="bg-black text-white px-3 py-2 flex items-center justify-between border-b-4 border-black">
           <div className="flex items-center gap-1.5">
             <span className="w-3 h-3 bg-cv-pink border border-white rounded-none"></span>
             <span className="w-3 h-3 bg-cv-yellow border border-white rounded-none"></span>
@@ -94,7 +94,7 @@ const LoadingScreen = ({ onComplete }) => {
             <h1 className="text-3xl font-black font-display tracking-tight uppercase select-none">
               HAR<span>ı</span>HARAN
             </h1>
-            <p className="text-[10px] font-mono font-bold tracking-widest uppercase text-zinc-500 dark:text-zinc-400">
+            <p className="text-[10px] font-mono font-bold tracking-widest uppercase text-zinc-500">
               PORTFOLIO INITIALIZATION
             </p>
           </div>
@@ -102,7 +102,7 @@ const LoadingScreen = ({ onComplete }) => {
           {/* Retro Progress Bar Container */}
           <div className="w-full max-w-xs space-y-2">
             {/* The actual progress bar */}
-            <div className="w-full h-8 border-3 border-black bg-zinc-100 dark:bg-zinc-900 flex items-center justify-between px-2 font-mono font-black text-sm relative shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]">
+            <div className="w-full h-8 border-3 border-black bg-zinc-100 flex items-center justify-between px-2 font-mono font-black text-sm relative shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
               {/* Retro Block progress markers */}
               <div className="flex gap-1 flex-1 pr-4">
                 {Array.from({ length: totalBlocks }).map((_, i) => (
@@ -110,20 +110,20 @@ const LoadingScreen = ({ onComplete }) => {
                     key={i}
                     className={`h-4 w-3 border border-black/20 ${
                       i < activeBlocks
-                        ? 'bg-cv-yellow dark:bg-cv-green'
+                        ? 'bg-cv-yellow'
                         : 'bg-transparent'
                     }`}
                   />
                 ))}
               </div>
-              <span className="text-black dark:text-white shrink-0 select-none">
+              <span className="text-black shrink-0 select-none">
                 {Math.round(progress)}%
               </span>
             </div>
           </div>
 
           {/* Dynamic Status Log Terminal */}
-          <div className="w-full bg-zinc-950 text-[#A3E635] font-mono text-[11px] p-4 text-left border-3 border-black h-28 flex flex-col justify-between shadow-[inset_0px_0px_10px_rgba(0,0,0,0.8)] overflow-hidden">
+          <div className="w-full bg-zinc-100 text-zinc-900 font-mono text-[11px] p-4 text-left border-3 border-black h-28 flex flex-col justify-between shadow-[inset_1px_1px_3px_rgba(0,0,0,0.15)] overflow-hidden">
             <div className="space-y-1 select-none overflow-hidden">
               {/* Prev log, current log */}
               {logIndex > 0 && (
@@ -137,7 +137,7 @@ const LoadingScreen = ({ onComplete }) => {
               </div>
             </div>
             
-            <div className="border-t border-zinc-800 pt-1.5 flex items-center justify-between text-[9px] text-zinc-500 uppercase font-black">
+            <div className="border-t border-zinc-300 pt-1.5 flex items-center justify-between text-[9px] text-zinc-500 uppercase font-black">
               <span>Status: Loading</span>
               <span>v1.0.0</span>
             </div>
