@@ -7,28 +7,60 @@ const CustomCursor = () => {
   const [isClicking, setIsClicking] = useState(false);
   const [clicks, setClicks] = useState([]);
 
-  // Refs for high-performance direct style and text manipulation
-  const pointerRef = useRef(null);
-  const followerRef = useRef(null);
-
-  // Position coordinates
-  const mousePos = useRef({ x: 0, y: 0 });
-  const followerPos = useRef({ x: 0, y: 0 });
+  // Refs for canvas and particles
+  const canvasRef = useRef(null);
+  const particles = useRef([]);
+  const lastSpawnPos = useRef({ x: 0, y: 0 });
   const animationFrameId = useRef(null);
 
   useEffect(() => {
-    const checkMobile = () => {
+    const handleResize = () => {
       setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+      if (canvasRef.current) {
+        canvasRef.current.width = window.innerWidth;
+        canvasRef.current.height = window.innerHeight;
+      }
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+    handleResize();
+    window.addEventListener('resize', handleResize);
 
     if (isMobile) return;
 
     const handleMouseMove = (e) => {
-      mousePos.current.x = e.clientX;
-      mousePos.current.y = e.clientY;
       if (hidden) setHidden(false);
+
+      // Spawn trail particles based on mouse movement distance
+      const dx = e.clientX - lastSpawnPos.current.x;
+      const dy = e.clientY - lastSpawnPos.current.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance > 8) {
+        const colors = ['#FFDE4D', '#A3E635', '#FB923C', '#F472B6', '#22D3EE', '#C084FC'];
+        const shapes = ['circle', 'square', 'cross', 'triangle'];
+        
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 0.4 + Math.random() * 1.2;
+        const vx = Math.cos(angle) * speed;
+        const vy = Math.sin(angle) * speed;
+
+        particles.current.push({
+          x: e.clientX,
+          y: e.clientY,
+          vx,
+          vy,
+          color,
+          shape,
+          size: 6 + Math.random() * 8, // size between 6 and 14
+          alpha: 1.0,
+          rotation: Math.random() * Math.PI * 2,
+          rotationSpeed: (Math.random() - 0.5) * 0.1
+        });
+
+        lastSpawnPos.current = { x: e.clientX, y: e.clientY };
+      }
     };
 
     const handleMouseLeave = () => setHidden(true);
@@ -111,22 +143,91 @@ const CustomCursor = () => {
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
 
+    // Initial canvas sizing if ref already exists
+    if (canvasRef.current) {
+      canvasRef.current.width = window.innerWidth;
+      canvasRef.current.height = window.innerHeight;
+    }
+
     // Smooth physics LERP loop
     const updateCursor = () => {
-      // 1. Pointer (Core dot) tracks mouse instantly
-      if (pointerRef.current) {
-        pointerRef.current.style.left = `${mousePos.current.x}px`;
-        pointerRef.current.style.top = `${mousePos.current.y}px`;
-      }
+      // Update and draw canvas particles
+      if (canvasRef.current) {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          for (let i = particles.current.length - 1; i >= 0; i--) {
+            const p = particles.current[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vx *= 0.95;
+            p.vy *= 0.95;
+            p.alpha -= 0.025;
+            p.size -= 0.08;
+            p.rotation += p.rotationSpeed;
 
-      // 2. Follower frame lags behind with LERP
-      const lerpFactor = 0.15;
-      followerPos.current.x += (mousePos.current.x - followerPos.current.x) * lerpFactor;
-      followerPos.current.y += (mousePos.current.y - followerPos.current.y) * lerpFactor;
+            if (p.alpha <= 0 || p.size <= 0) {
+              particles.current.splice(i, 1);
+              continue;
+            }
 
-      if (followerRef.current) {
-        followerRef.current.style.left = `${followerPos.current.x}px`;
-        followerRef.current.style.top = `${followerPos.current.y}px`;
+            ctx.save();
+            ctx.globalAlpha = p.alpha;
+
+            if (p.shape === 'circle') {
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
+              ctx.fillStyle = p.color;
+              ctx.fill();
+              ctx.lineWidth = 1.5;
+              ctx.strokeStyle = '#000000';
+              ctx.stroke();
+            } else if (p.shape === 'square') {
+              ctx.translate(p.x, p.y);
+              ctx.rotate(p.rotation);
+              ctx.fillStyle = p.color;
+              ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+              ctx.lineWidth = 1.5;
+              ctx.strokeStyle = '#000000';
+              ctx.strokeRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            } else if (p.shape === 'cross') {
+              ctx.translate(p.x, p.y);
+              ctx.rotate(p.rotation);
+              ctx.beginPath();
+              ctx.moveTo(-p.size / 2, 0);
+              ctx.lineTo(p.size / 2, 0);
+              ctx.moveTo(0, -p.size / 2);
+              ctx.lineTo(0, p.size / 2);
+              
+              // Thick black outline
+              ctx.lineWidth = 3.5;
+              ctx.strokeStyle = '#000000';
+              ctx.stroke();
+              
+              // Colored center line
+              ctx.lineWidth = 1.5;
+              ctx.strokeStyle = p.color;
+              ctx.stroke();
+            } else if (p.shape === 'triangle') {
+              ctx.translate(p.x, p.y);
+              ctx.rotate(p.rotation);
+              ctx.beginPath();
+              ctx.moveTo(0, -p.size / 2);
+              ctx.lineTo(p.size / 2, p.size / 2);
+              ctx.lineTo(-p.size / 2, p.size / 2);
+              ctx.closePath();
+              ctx.fillStyle = p.color;
+              ctx.fill();
+              ctx.lineWidth = 1.5;
+              ctx.strokeStyle = '#000000';
+              ctx.stroke();
+            }
+            
+            ctx.restore();
+          }
+        }
       }
 
       animationFrameId.current = requestAnimationFrame(updateCursor);
@@ -135,7 +236,7 @@ const CustomCursor = () => {
     animationFrameId.current = requestAnimationFrame(updateCursor);
 
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
@@ -152,19 +253,21 @@ const CustomCursor = () => {
 
   return (
     <>
-      {/* 1. Snappy Pointer Core Dot */}
-      <div 
-        ref={pointerRef} 
-        className={`custom-reticle-pointer ${hoverContext ? `context-${hoverContext}` : ''} ${isClicking ? 'is-clicking' : ''}`} 
+      {/* High-performance canvas particle trail */}
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          pointerEvents: 'none',
+          zIndex: 999997,
+        }}
       />
 
-      {/* 2. Lagging Follower Frame */}
-      <div
-        ref={followerRef}
-        className={`custom-reticle-follower ${hoverContext ? `context-${hoverContext}` : ''} ${isClicking ? 'is-clicking' : ''}`}
-      />
-
-      {/* 3. Click Ripples */}
+      {/* Click Ripples */}
       {clicks.map((click) => (
         <div
           key={click.id}

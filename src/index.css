@@ -329,30 +329,11 @@
 
 /* Custom Interactive Cursor Styling */
 @media (min-width: 768px) {
-  html, body, a, button, select, input, textarea, [role="button"], .cursor-pointer {
-    cursor: none !important;
-  }
+  /* Keep normal mouse point, no cursor: none */
 }
 
 .custom-reticle-pointer {
-  position: fixed;
-  width: 5px;
-  height: 5px;
-  background-color: #000000;
-  border: 1px solid #ffffff;
-  pointer-events: none;
-  z-index: 999999;
-  transform: translate(-50%, -50%);
-  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
-}
-
-.custom-reticle-pointer.context-input {
-  opacity: 0;
-}
-
-.custom-reticle-pointer.is-clicking {
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
+  display: none !important;
 }
 
 .custom-reticle-follower {
@@ -384,24 +365,22 @@
   animation: none !important;
 }
 
-/* Design Hover: Green Neo-Brutalist Square (Slow Spin) */
+/* Design Hover: Green Neo-Brutalist Square (Slow Spin + Alternating Colors) */
 .custom-reticle-follower.context-design {
   width: 24px;
   height: 24px;
-  background-color: var(--color-cv-green);
   border-color: #000000;
   box-shadow: 3px 3px 0px 0px #000000;
-  animation: cursor-follower-spin 6s linear infinite;
+  animation: cursor-follower-spin 6s linear infinite, cursor-color-alternate 3s linear infinite;
 }
 
-/* Dev Hover: Pink Neo-Brutalist Square (Slow Spin) */
+/* Dev Hover: Pink Neo-Brutalist Square (Slow Spin + Alternating Colors) */
 .custom-reticle-follower.context-dev {
   width: 24px;
   height: 24px;
-  background-color: var(--color-cv-pink);
   border-color: #000000;
   box-shadow: 3px 3px 0px 0px #000000;
-  animation: cursor-follower-spin 6s linear infinite;
+  animation: cursor-follower-spin 6s linear infinite, cursor-color-alternate 3s linear infinite -0.6s;
 }
 
 /* Input Hover: Cyan select slot caret */
@@ -414,14 +393,13 @@
   box-shadow: none;
 }
 
-/* General Hover: Yellow Neo-Brutalist Square (Slow Spin) */
+/* General Hover: Yellow Neo-Brutalist Square (Slow Spin + Alternating Colors) */
 .custom-reticle-follower.context-general {
   width: 24px;
   height: 24px;
-  background-color: var(--color-cv-yellow);
   border-color: #000000;
   box-shadow: 3px 3px 0px 0px #000000;
-  animation: cursor-follower-spin 6s linear infinite;
+  animation: cursor-follower-spin 6s linear infinite, cursor-color-alternate 3s linear infinite -1.2s;
 }
 
 /* Custom Interactive Click Ripple */
@@ -456,6 +434,14 @@
     opacity: 0;
     transform: translate(-50%, -50%) rotate(45deg);
   }
+}
+
+@keyframes cursor-color-alternate {
+  0%, 100% { background-color: var(--color-cv-green); }
+  20% { background-color: var(--color-cv-pink); }
+  40% { background-color: var(--color-cv-yellow); }
+  60% { background-color: var(--color-cv-cyan); }
+  80% { background-color: var(--color-cv-purple); }
 }
 
 
