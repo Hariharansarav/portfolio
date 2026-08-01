@@ -509,5 +509,166 @@
   animation: scroll-down 25s linear infinite;
 }
 
+/* ==========================================================================
+   INTERACTIVE RESUME REDESIGN THEMES & UTILITIES
+   ========================================================================== */
 
+.theme-classic {
+  --resume-bg: #DBE2E9;
+  --resume-card-bg: #FFFFFF;
+  --resume-card-sub-bg: #F8FAFC;
+  --resume-text: #000000;
+  --resume-border: #000000;
+  --resume-accent: #FFDE4D; /* Yellow */
+  --resume-accent-rgb: 255, 222, 77;
+  --resume-accent-secondary: #A3E635; /* Green */
+  --resume-accent-tertiary: #F472B6; /* Pink */
+  --resume-accent-muted: #22D3EE; /* Cyan */
+  --resume-accent-purple: #C084FC; /* Purple */
+  --resume-shadow: 6px 6px 0px 0px #000000;
+  --resume-shadow-sm: 3px 3px 0px 0px #000000;
+  --resume-shadow-lg: 10px 10px 0px 0px #000000;
+  --resume-shadow-hover: 9px 9px 0px 0px #000000;
+  --resume-text-muted: #4B5563; /* Slate-600 */
+}
 
+.theme-terminal {
+  --resume-bg: #0A0D10;      /* Deep retro slate-black */
+  --resume-card-bg: #11151D;  /* Cool terminal dark gray */
+  --resume-card-sub-bg: #181E2A; /* Terminal sub-block */
+  --resume-text: #E2E8F0;     /* Warm white */
+  --resume-border: #22D3EE;   /* Neon Cyan */
+  --resume-accent: #A3E635;   /* Neon Green */
+  --resume-accent-rgb: 163, 230, 53;
+  --resume-accent-secondary: #22D3EE; /* Neon Cyan */
+  --resume-accent-tertiary: #F472B6; /* Pink */
+  --resume-accent-muted: #CBD5E1; /* Cool Slate */
+  --resume-accent-purple: #C084FC; /* Purple */
+  --resume-shadow: 6px 6px 0px 0px #22D3EE;
+  --resume-shadow-sm: 3px 3px 0px 0px #22D3EE;
+  --resume-shadow-lg: 10px 10px 0px 0px #22D3EE;
+  --resume-shadow-hover: 9px 9px 0px 0px #A3E635;
+  --resume-text-muted: #94A3B8; /* Slate-400 */
+}
+
+.theme-sunset {
+  --resume-bg: #160D22;      /* Deep midnight-purple */
+  --resume-card-bg: #221634;  /* Rich sunset purple */
+  --resume-card-sub-bg: #30204A; /* Lighter purple card */
+  --resume-text: #FFE3F1;     /* Soft sunset rose */
+  --resume-border: #FB923C;   /* Sunset Orange */
+  --resume-accent: #F472B6;   /* Hot Pink */
+  --resume-accent-rgb: 244, 114, 182;
+  --resume-accent-secondary: #FB923C; /* Orange */
+  --resume-accent-tertiary: #C084FC; /* Orchid Purple */
+  --resume-accent-muted: #FFE3F1; /* Soft rose */
+  --resume-accent-purple: #C084FC; /* Purple */
+  --resume-shadow: 6px 6px 0px 0px #FB923C;
+  --resume-shadow-sm: 3px 3px 0px 0px #FB923C;
+  --resume-shadow-lg: 10px 10px 0px 0px #F472B6;
+  --resume-shadow-hover: 9px 9px 0px 0px #F472B6;
+  --resume-text-muted: #D8B4FE; /* Lavender */
+}
+
+/* Base custom interactive styles */
+.resume-container {
+  background-color: var(--resume-bg);
+  color: var(--resume-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.resume-card {
+  background-color: var(--resume-card-bg);
+  border: 3px solid var(--resume-border);
+  box-shadow: var(--resume-shadow);
+  color: var(--resume-text);
+  border-radius: 12px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.3s ease,
+              border-color 0.3s ease,
+              color 0.3s ease;
+}
+
+.resume-card-interactive:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--resume-shadow-hover);
+}
+
+.resume-card-interactive:active {
+  transform: translate(1px, 1px);
+  box-shadow: var(--resume-shadow-sm);
+}
+
+.resume-btn {
+  background-color: var(--resume-card-bg);
+  color: var(--resume-text);
+  border: 3px solid var(--resume-border);
+  box-shadow: var(--resume-shadow-sm);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.3s ease,
+              border-color 0.3s ease,
+              color 0.3s ease;
+}
+
+.resume-btn:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--resume-shadow);
+}
+
+.resume-btn:active:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px 0px var(--resume-border);
+}
+
+/* Glowing border chase effect for highlights */
+.resume-glow-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.resume-glow-effect::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    transparent,
+    rgba(var(--resume-accent-rgb), 0.1),
+    rgba(var(--resume-accent-rgb), 0.4),
+    rgba(var(--resume-accent-rgb), 0.1),
+    transparent
+  );
+  animation: hud-spin 8s linear infinite;
+  pointer-events: none;
+}
+
+/* Animated Border Chase for active cards */
+@keyframes border-chase {
+  0% { border-color: var(--resume-border); }
+  50% { border-color: var(--resume-accent); }
+  100% { border-color: var(--resume-border); }
+}
+
+.resume-active-border {
+  animation: border-chase 4s ease-in-out infinite;
+}
+
+/* Background grid variants for themes */
+.bg-grid-classic {
+  background-size: 16px 16px;
+  background-image: radial-gradient(circle, #bbc4cc 1.5px, transparent 1.5px);
+}
+
+.bg-grid-terminal {
+  background-size: 16px 16px;
+  background-image: radial-gradient(circle, rgba(34, 211, 238, 0.15) 1.5px, transparent 1.5px);
+}
+
+.bg-grid-sunset {
+  background-size: 16px 16px;
+  background-image: radial-gradient(circle, rgba(251, 146, 60, 0.15) 1.5px, transparent 1.5px);
+}
