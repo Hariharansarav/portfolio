@@ -328,11 +328,7 @@
 }
 
 /* Custom Interactive Cursor Styling */
-@media (min-width: 768px) {
-  *, html, body {
-    cursor: none !important;
-  }
-}
+/* Default cursor is enabled; dot follower will move with it */
 
 .custom-cursor-point {
   width: 8px;
